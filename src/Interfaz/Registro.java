@@ -241,7 +241,7 @@ public class Registro extends javax.swing.JFrame {
                 if (edad < 12 || edad > 100) {
                     JOptionPane.showMessageDialog(null, "!Error. Rango de edad invalido");
                     txtedad.setText(null);
-                    edad = -1; // Reiniciar edad a valor inválido
+                    edad = -1; // Reiniciar edad a valor invalid
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "!Error. El campo de edad no puede estar vacío");
@@ -263,7 +263,7 @@ public class Registro extends javax.swing.JFrame {
     if (!nombre.isEmpty()
         && !username.isEmpty()
         && !password.isEmpty()
-        && edad != -1 // Verifica que la edad sea válida
+        && edad != -1
         && generoSeleccionado) {
         
         if (!user.usuarioExiste(username)) {
@@ -281,7 +281,6 @@ public class Registro extends javax.swing.JFrame {
        
         
     } else {
-        // Verificar qué campo está vacío o si el género no está seleccionado
         if (nombre.isEmpty() || username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(null, "¡Error! Asegúrese de llenar todos los campos");
             

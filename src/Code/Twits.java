@@ -6,7 +6,7 @@ package Code;
 
 /**
  *
- * @author karen
+ * @author jaren
  */
 public class Twits {
     private String username;

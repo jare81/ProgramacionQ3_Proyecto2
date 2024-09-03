@@ -6,7 +6,7 @@ package Code;
 
 /**
  *
- * @author karen
+ * @author jaren
  */
 public class Usuario {
    
@@ -18,7 +18,7 @@ public class Usuario {
     private int     edad;
     private boolean estado; 
     
-    private Twits[] twits; // Arreglo para los twits del usuario
+    private Twits[] twits;
     private int contadorTwits;
     
     private Twits[] hashtags;
@@ -37,7 +37,7 @@ public class Usuario {
         this.edad=edad;
         this.estado=estado;
         
-        this.twits = new Twits[1000]; // Suponiendo un máximo de 100 twits por usuario
+        this.twits = new Twits[1000]; 
         this.contadorTwits = 0;
         
         this.hashtags = new Twits[1000];

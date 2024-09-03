@@ -11,13 +11,13 @@ import Interfaz.Registro;
 
 public class Main {
     public static void main(String[] args) {
-        // Crear una instancia de ManejoUsuario
+        //instancia de manejousuario
         ManejoUsuario user = new ManejoUsuario(100);
         
         Apariencia apariencia = new Apariencia(user);
         Perfil perfil = new Perfil(user);
 
-        // Crear instancias de los JFrames y pasar la instancia de ManejoUsuario
+        //instancias de los frames y pasar instancia de manejousuario
         Iniciar_Sesion iniciarSesion = new Iniciar_Sesion(user);
         Registro registro = new Registro(user);
         

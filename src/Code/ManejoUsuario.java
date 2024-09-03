@@ -6,7 +6,7 @@ package Code;
 
 /**
  *
- * @author karen
+ * @author jaren
  */
 public class ManejoUsuario {
   
@@ -57,7 +57,7 @@ public class ManejoUsuario {
             usuarios[contadorUsers] = nuevoUsuario;
             contadorUsers++;
             
-            // Si no hay un usuario actualmente conectado, hacer que el nuevo usuario sea el usuario actual
+            // Si no hay un usuario conectado hacer que el nuevo usuario sea el usuario actual
             if (usuarioActual == null) {
                 usuarioActual = nuevoUsuario;
             }
@@ -116,7 +116,7 @@ public class ManejoUsuario {
    }
         public boolean cerrarSesion(){
             if (usuarioActual != null) {
-            usuarioActual = null; // Limpiar la referencia del usuario actual
+            usuarioActual = null; 
             return true;
             }
             return false;
@@ -128,28 +128,29 @@ public class ManejoUsuario {
           if (usuarioActual != null) {
             return usuarioActual.getNombre_user();
         }
-        return "Usuario no encontrado"; // Mensaje adecuado si no hay usuario actual
+        return "Usuario no encontrado"; 
     }
         
         public String mostrarUser() {
          if (usuarioActual != null) {
             return usuarioActual.getUsername();
         }
-        return "Usuario no encontrado"; // Mensaje adecuado si no hay usuario actual
-    }
+        return "Usuario no encontrado"; 
+        
+        }
         
      public char mostrarGenero() {
          if (usuarioActual != null) {
             return usuarioActual.getGenero();
         }
-        return 0; // Mensaje adecuado si no hay usuario actual
+        return 0; 
     }
      
      public String mostrarFecha() {
          if (usuarioActual != null) {
             return usuarioActual.getFecha();
         }
-        return "Sin Fecha"; // Mensaje adecuado si no hay usuario actual
+        return "Sin Fecha"; 
     }
      
    public void agregarTwitActual(String username, String contenido, String hora) {
