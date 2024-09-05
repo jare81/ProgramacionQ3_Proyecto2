@@ -27,6 +27,8 @@ public class Usuario {
     private Twits[]  menciones;
     private int contadorMenciones;
     
+   private ManejoUsuario user;
+  
     
     public Usuario(String nombre_user, char genero, String username, String contrasena, String fecha, int edad, boolean estado){
         this.nombre_user= nombre_user;
@@ -45,31 +47,51 @@ public class Usuario {
         
         this.menciones = new Twits[1000];
         this.contadorMenciones=0; 
+      
+        
     }
     
-    
+      
+
     public void agregarTwit(Twits twit) {
-        String uss = getUsername();
-        
-        if(twit.getContenido().contains("@" + uss)){
-            if(contadorMenciones < menciones.length ){
-                menciones[contadorMenciones] = twit;
-                contadorMenciones++;
-            }else{
-                System.out.println("No se puede agregar mas menciones");
-            } 
-            
-            
-        }else if(twit.getContenido().contains("#")){
+      
+       if(twit.getContenido().contains("#")){
             if(contadorHashtags < hashtags.length ){
                 hashtags[contadorHashtags] = twit;
                 contadorHashtags++;
+                twits[contadorTwits] = twit;
+                contadorTwits++;
             }else{
                 System.out.println("No se puede agregar mas hashtags");
             }
             
             
-        }else{
+        }else if (twit.getContenido().contains("@")){
+        
+            String contenido = twit.getContenido();
+            
+            int inicio = contenido.indexOf("@") + 1;
+            int fin = contenido.indexOf(" ", inicio);
+          
+            if (fin == -1) {
+                fin = contenido.length();
+            }
+
+            String nombre = contenido.substring(inicio, fin);
+            
+                if(user!=null && user.mostrarNombre().equals(nombre)){
+
+                        menciones[contadorMenciones] = twit;
+                        contadorMenciones++;
+                        
+                        twits[contadorTwits] = twit;
+                        contadorTwits++;
+                    
+                }else{
+                    System.out.println("Este usuario no existe");
+                }
+ 
+        } else{
             if (contadorTwits < twits.length) {
             twits[contadorTwits] = twit;
             contadorTwits++;
@@ -80,8 +102,7 @@ public class Usuario {
         
     }
     
-    
-
+   
     public Twits[] getTwits() {
         Twits[] twitsActuales = new Twits[contadorTwits];
         System.arraycopy(twits, 0, twitsActuales, 0, contadorTwits);

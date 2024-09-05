@@ -13,7 +13,9 @@ public class ManejoUsuario {
     private Usuario usuarios[];
     private int contadorUsers;
     private Usuario usuarioActual;
+    private String otroUser="";
     
+ 
     
     /*public String ser="";
     public boolean actual=false;*/
@@ -48,10 +50,6 @@ public class ManejoUsuario {
    }
      public  boolean agregarUser (String nombre_user, char genero, String username, String contrasena, String fecha, int edad, boolean estado){
          
-           if (usuarioExiste(username)) {
-                return false;
-            }
-           
             if (contadorUsers < usuarios.length) {
             Usuario nuevoUsuario = new Usuario(nombre_user, genero, username, contrasena, fecha, edad, estado);
             usuarios[contadorUsers] = nuevoUsuario;
@@ -68,9 +66,9 @@ public class ManejoUsuario {
             }
     
          
-      }
-        
- 
+     }
+     
+     
         public boolean usuarioExiste(String username) {
         for (int i = 0; i < contadorUsers; i++) {
             if (usuarios[i] != null && usuarios[i].getUsername().equals(username)) {
@@ -80,18 +78,33 @@ public class ManejoUsuario {
         return false;
     }
         
-    
-        
-        
-     
-        
+      
     public Usuario obtenerUsuario(String username) {
         for (int i = 0; i <contadorUsers ; i++) {
             if (usuarios[i] != null && usuarios[i].getUsername().equals(username)) {
+                otroUser= usuarios[i].getUsername();
                 return usuarios[i];
             }
         }
         return null;
+    }
+    
+    
+    public Usuario obtenerUsuarioPorNombre(String username) {
+        for (Usuario usuario : usuarios) {
+            if (usuario != null && usuario.getUsername().equals(username)) {
+                return usuario;
+            }
+        }
+        return null;
+    }
+    
+    
+    public Usuario[] obtenerUsuarios() {
+        Usuario[] usuariosActuales = new Usuario[contadorUsers];
+        System.arraycopy(usuarios, 0, usuariosActuales, 0, contadorUsers);
+        
+        return usuariosActuales;
     }
     
      public boolean validarCredenciales(String username, String password) {
@@ -114,6 +127,7 @@ public class ManejoUsuario {
         }
            return false;
    }
+        
         public boolean cerrarSesion(){
             if (usuarioActual != null) {
             usuarioActual = null; 

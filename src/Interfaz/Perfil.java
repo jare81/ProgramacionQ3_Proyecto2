@@ -2,7 +2,9 @@
 package Interfaz;
 
 import Code.ManejoUsuario;
+import Code.Twits;
 import javax.swing.ImageIcon;
+
 
 public class Perfil extends javax.swing.JFrame {
 private ManejoUsuario user; 
@@ -12,6 +14,7 @@ private ManejoUsuario user;
         
         initComponents();
         actualizarUsuario();
+        mostrarTwit();
     }
 
     
@@ -36,10 +39,25 @@ private ManejoUsuario user;
         } else {
             System.err.println("No se pudo encontrar la imagen en la ruta: " + rutaImagen);
         }
-        
-        
-        
+         
 }
+    
+     public void mostrarTwit() {
+        jTextArea1.setText("");
+        
+        Twits[] twits = user.obtenerTwitsActual();
+
+        for (Twits twit : twits) {
+            if (twit != null) {
+                jTextArea1.append(twit.toString() + "\n\n");
+                  
+            }
+        }
+        
+        revalidate();
+        repaint();
+    }
+   
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -59,9 +77,11 @@ private ManejoUsuario user;
         bnuser1 = new javax.swing.JButton();
         bnback = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        are3 = new javax.swing.JPanel();
         lbcalendario1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        area = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         Fonde = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -145,38 +165,48 @@ private ManejoUsuario user;
         jTextField1.setText("Buscar algo");
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 40, 450, 40));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        are3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout are3Layout = new javax.swing.GroupLayout(are3);
+        are3.setLayout(are3Layout);
+        are3Layout.setHorizontalGroup(
+            are3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 486, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        are3Layout.setVerticalGroup(
+            are3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 576, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 110, 490, 580));
+        getContentPane().add(are3, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 110, 490, 580));
 
         lbcalendario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/calendar24.png"))); // NOI18N
         getContentPane().add(lbcalendario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, -1, -1));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        area.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 916, Short.MAX_VALUE)
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        javax.swing.GroupLayout areaLayout = new javax.swing.GroupLayout(area);
+        area.setLayout(areaLayout);
+        areaLayout.setHorizontalGroup(
+            areaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(areaLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 316, Short.MAX_VALUE)
+        areaLayout.setVerticalGroup(
+            areaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(areaLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 920, 320));
+        getContentPane().add(area, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 920, 320));
         getContentPane().add(Fonde, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1490, 730));
 
         pack();
@@ -233,6 +263,8 @@ private ManejoUsuario user;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Fonde;
+    private javax.swing.JPanel are3;
+    private javax.swing.JPanel area;
     private javax.swing.JButton bnback;
     private javax.swing.JButton bnseguidores;
     private javax.swing.JButton bnseguidos;
@@ -240,8 +272,8 @@ private ManejoUsuario user;
     private javax.swing.JButton bnuser1;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbcalendario;
     private javax.swing.JLabel lbcalendario1;

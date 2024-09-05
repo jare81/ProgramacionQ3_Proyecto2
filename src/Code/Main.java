@@ -10,11 +10,12 @@ import Interfaz.Perfil;
 import Interfaz.Registro;
 
 public class Main {
+    
     public static void main(String[] args) {
         //instancia de manejousuario
         ManejoUsuario user = new ManejoUsuario(100);
         
-        Apariencia apariencia = new Apariencia(user);
+        Apariencia apariencia = new Apariencia(user); 
         Perfil perfil = new Perfil(user);
 
         //instancias de los frames y pasar instancia de manejousuario
@@ -22,6 +23,8 @@ public class Main {
         Registro registro = new Registro(user);
         
       
+      
         iniciarSesion.setVisible(true);
+        
     }
 }

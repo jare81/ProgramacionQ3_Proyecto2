@@ -19,13 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 
-/**
- *
- * @author karen
- */
 public class Apariencia extends javax.swing.JFrame {
       private ManejoUsuario user;
-      Iniciar_Sesion ini = new Iniciar_Sesion(user);
       int max=140;
       private TimeLine timeLinePanel;
       private Interacciones timeLinePanel2;
@@ -56,6 +51,7 @@ public class Apariencia extends javax.swing.JFrame {
         timeLinePanel = new TimeLine(user);
         timeLinePanel2 = new Interacciones(user);
      
+         mostrarHash();
     }
     
     
@@ -175,6 +171,8 @@ public class Apariencia extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         hashs = new javax.swing.JTextArea();
         jTextField2 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         contenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -362,13 +360,21 @@ public class Apariencia extends javax.swing.JFrame {
         hashs.setRows(5);
         jScrollPane1.setViewportView(hashs);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 250, 540));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 250, 500));
 
         jTextField2.setText("Buscar");
         jTextField2.setToolTipText("");
-        jPanel4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 190, 40));
+        jPanel4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 190, 40));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 20, 270, 630));
+        jLabel4.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("HASHTAGS");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/lupa32.png"))); // NOI18N
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 40));
+
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 10, 270, 640));
 
         contenido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -440,8 +446,14 @@ public class Apariencia extends javax.swing.JFrame {
             user.agregarTwitActual(user.mostrarNombre(), contenido, hora);
 
             timeLinePanel.mostrarTwit();
-
+            
+            
             JOptionPane.showMessageDialog(null, "Post publicado");
+            mostrarHash();
+            
+            
+            areapost.setText("");
+            
         
         } else {
             JOptionPane.showMessageDialog(null, "Sin contenido");
@@ -521,6 +533,8 @@ public class Apariencia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
