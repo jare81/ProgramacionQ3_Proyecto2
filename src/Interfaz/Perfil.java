@@ -29,9 +29,9 @@ private ManejoUsuario user;
         char genero = user.mostrarGenero();
 
         if (genero == 'M') {
-            rutaImagen = "/Images/male128.png"; 
+            rutaImagen = "/Images/maleazul128.png"; 
         } else if (genero == 'F') {
-            rutaImagen = "/Images/female128.png"; 
+            rutaImagen = "/Images/femaleazul128.png"; 
         }
 
             java.net.URL imgURL = getClass().getResource(rutaImagen);
@@ -95,6 +95,7 @@ private ManejoUsuario user;
         area = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
         Fonde = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -112,7 +113,9 @@ private ManejoUsuario user;
         lbsiguiendo.setText("50");
         getContentPane().add(lbsiguiendo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, 50, 30));
 
+        bnseguidos.setBackground(new java.awt.Color(0, 153, 255));
         bnseguidos.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        bnseguidos.setForeground(new java.awt.Color(0, 0, 0));
         bnseguidos.setText("Siguiendo");
         bnseguidos.setBorderPainted(false);
         bnseguidos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -123,7 +126,9 @@ private ManejoUsuario user;
         });
         getContentPane().add(bnseguidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 310, 120, 30));
 
+        bnseguidores.setBackground(new java.awt.Color(0, 153, 255));
         bnseguidores.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        bnseguidores.setForeground(new java.awt.Color(0, 0, 0));
         bnseguidores.setText("Seguidos");
         bnseguidores.setBorderPainted(false);
         bnseguidores.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -151,9 +156,14 @@ private ManejoUsuario user;
         bnuser.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         bnuser.setForeground(new java.awt.Color(0, 0, 0));
         bnuser.setText("username");
+        bnuser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bnuserActionPerformed(evt);
+            }
+        });
         getContentPane().add(bnuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 280, 20));
 
-        lbcalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/lupa32.png"))); // NOI18N
+        lbcalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/lupaazul32.png"))); // NOI18N
         getContentPane().add(lbcalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 40, 40, 40));
 
         lbfecha.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
@@ -168,7 +178,9 @@ private ManejoUsuario user;
         lbfecha1.setText("Se unió en");
         getContentPane().add(lbfecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 90, 25));
 
+        bnactivar.setBackground(new java.awt.Color(0, 153, 255));
         bnactivar.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
+        bnactivar.setForeground(new java.awt.Color(0, 0, 0));
         bnactivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnactivarActionPerformed(evt);
@@ -176,7 +188,9 @@ private ManejoUsuario user;
         });
         getContentPane().add(bnactivar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 260, 130, 30));
 
+        bnback.setBackground(new java.awt.Color(255, 255, 255));
         bnback.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        bnback.setForeground(new java.awt.Color(0, 153, 255));
         bnback.setText("X ");
         bnback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,11 +199,18 @@ private ManejoUsuario user;
         });
         getContentPane().add(bnback, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 30));
 
+        txfbperfil.setBackground(new java.awt.Color(153, 153, 153));
         txfbperfil.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        txfbperfil.setForeground(new java.awt.Color(0, 0, 0));
         txfbperfil.setText("Buscar algo");
         txfbperfil.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 txfbperfilMousePressed(evt);
+            }
+        });
+        txfbperfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfbperfilActionPerformed(evt);
             }
         });
         txfbperfil.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -199,7 +220,9 @@ private ManejoUsuario user;
         });
         getContentPane().add(txfbperfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 40, 450, 40));
 
-        are3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        are3.setBackground(new java.awt.Color(0, 0, 0));
+        are3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        are3.setOpaque(false);
 
         areabuscar.setEditable(false);
         areabuscar.setBackground(new java.awt.Color(0, 0, 0));
@@ -207,6 +230,7 @@ private ManejoUsuario user;
         areabuscar.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
         areabuscar.setForeground(new java.awt.Color(255, 255, 255));
         areabuscar.setRows(5);
+        areabuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         jScrollPane2.setViewportView(areabuscar);
 
         javax.swing.GroupLayout are3Layout = new javax.swing.GroupLayout(are3);
@@ -223,15 +247,17 @@ private ManejoUsuario user;
             .addGroup(are3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(are3, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 110, 490, 580));
+        getContentPane().add(are3, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 160, 490, 530));
 
         lbcalendario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/calendar24.png"))); // NOI18N
         getContentPane().add(lbcalendario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, -1, -1));
 
-        area.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        area.setBackground(new java.awt.Color(0, 0, 0));
+        area.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        area.setOpaque(false);
 
         jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(0, 0, 0));
@@ -239,6 +265,7 @@ private ManejoUsuario user;
         jTextArea1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea1.setRows(5);
+        jTextArea1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout areaLayout = new javax.swing.GroupLayout(area);
@@ -260,7 +287,18 @@ private ManejoUsuario user;
 
         getContentPane().add(area, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 920, 320));
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 0));
+        jButton1.setText("Entrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 100, 120, -1));
+
+        Fonde.setBackground(new java.awt.Color(0, 0, 0));
         Fonde.setForeground(new java.awt.Color(255, 255, 255));
+        Fonde.setOpaque(true);
         getContentPane().add(Fonde, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1490, 730));
 
         pack();
@@ -271,7 +309,7 @@ private ManejoUsuario user;
     }//GEN-LAST:event_bnseguidosActionPerformed
 
     private void bnseguidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnseguidoresActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_bnseguidoresActionPerformed
 
     private void bnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnbackActionPerformed
@@ -315,6 +353,18 @@ private ManejoUsuario user;
          
         }
     }//GEN-LAST:event_bnactivarActionPerformed
+
+    private void bnuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnuserActionPerformed
+   
+    }//GEN-LAST:event_bnuserActionPerformed
+
+    private void txfbperfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfbperfilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfbperfilActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -363,6 +413,7 @@ private ManejoUsuario user;
     private javax.swing.JButton bnseguidos;
     private javax.swing.JButton bnuser;
     private javax.swing.JLabel fondo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

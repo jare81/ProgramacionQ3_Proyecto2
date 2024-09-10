@@ -278,6 +278,8 @@ public class ManejoUsuario {
     }    
     
     public Twits[] buscarHashtags(String palabraClave) {
+        
+        
         Twits[] resultados = new Twits[indexHashtagsG];
         int contadorResultados = 0;
         

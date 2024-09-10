@@ -370,7 +370,7 @@ public class Apariencia extends javax.swing.JFrame {
         lbhora.setText("00:00");
         jPanel3.add(lbhora, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 90, 40, 40));
 
-        areapost.setBackground(new java.awt.Color(0, 0, 0));
+        areapost.setBackground(new java.awt.Color(51, 51, 51));
         areapost.setColumns(20);
         areapost.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
         areapost.setForeground(new java.awt.Color(255, 255, 255));
@@ -400,8 +400,9 @@ public class Apariencia extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 250, 500));
 
+        txfbhash.setBackground(new java.awt.Color(51, 51, 51));
         txfbhash.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
-        txfbhash.setForeground(new java.awt.Color(0, 0, 0));
+        txfbhash.setForeground(new java.awt.Color(255, 255, 255));
         txfbhash.setText("Buscar");
         txfbhash.setToolTipText("");
         txfbhash.addFocusListener(new java.awt.event.FocusAdapter() {
