@@ -6,6 +6,7 @@ package Code;
 
 import Interfaz.Apariencia;
 import Interfaz.Iniciar_Sesion;
+import Interfaz.Interacciones;
 import Interfaz.Perfil;
 import Interfaz.Registro;
 
@@ -14,6 +15,7 @@ public class Main {
     public static void main(String[] args) {
         //instancia de manejousuario
         ManejoUsuario user = new ManejoUsuario(100);
+        Interacciones interacciones = new Interacciones(user);
         
         Apariencia apariencia = new Apariencia(user); 
         Perfil perfil = new Perfil(user);

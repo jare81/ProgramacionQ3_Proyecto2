@@ -42,6 +42,10 @@ public class Twits {
         return "\n     @ " + username + "\n           " + "publicó a las " + hora + "\n           " + contenido + "\n\n_____________________________________________________________________________________";
     }
     
+     public String toString2() {
+        return "\n     @ " + username + "\n           " + "publicó a las " + hora + "\n           " + contenido + "\n\n_______________________";
+    }
+    
     public void agregarTwit(Twits twit){
         if(numTwits< maxi){
            twits[numTwits]  = twit;

@@ -23,8 +23,12 @@ public class TimeLine extends javax.swing.JPanel {
     public TimeLine(ManejoUsuario user) {
         this.user=user;
         initComponents();
+        area.setLineWrap(true);  
+        area.setWrapStyleWord(true);
         
         mostrarTwit();
+        
+        
     }
 
     
@@ -32,12 +36,21 @@ public class TimeLine extends javax.swing.JPanel {
     public void mostrarTwit() {
         area.setText("");
         
-        Twits[] twits = user.obtenerTwitsActual();
+      /*  Twits[] twits = user.obtenerTwitsActual();
 
         for (Twits twit : twits) {
             if (twit != null) {
                 area.append(twit.toString() + "\n\n");
                   
+            }
+        }*/
+        
+        Twits[] twits = user.obtenerTwitsActual();
+
+        // Recorremos el arreglo en orden inverso
+        for (int i = twits.length - 1; i >= 0; i--) {
+            if (twits[i] != null) {
+                area.append(twits[i].toString() + "\n\n");
             }
         }
         
@@ -58,19 +71,23 @@ public class TimeLine extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         area = new javax.swing.JTextArea();
 
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setBackground(new java.awt.Color(0, 0, 0));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         setPreferredSize(new java.awt.Dimension(720, 490));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Descubre lo que están diciedo...");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 340, -1));
 
+        area.setEditable(false);
         area.setBackground(new java.awt.Color(0, 0, 0));
         area.setColumns(20);
         area.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         area.setForeground(new java.awt.Color(255, 255, 255));
         area.setRows(5);
+        area.setBorder(null);
         jScrollPane1.setViewportView(area);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 700, 410));

@@ -25,7 +25,6 @@ public class Registro extends javax.swing.JFrame {
     }
 
     char genero = 0;
-    boolean estado=true;
     Scanner entrada = new Scanner(System.in);
     LocalDate today = LocalDate.now();
 
@@ -59,10 +58,11 @@ public class Registro extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 48)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/x256.png"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/xb256.png"))); // NOI18N
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 320, 300));
 
         txpassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        txpassword.setForeground(new java.awt.Color(0, 0, 0));
         txpassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txpasswordFocusLost(evt);
@@ -76,11 +76,13 @@ public class Registro extends javax.swing.JFrame {
         getContentPane().add(txpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 280, 250, 30));
 
         jLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Nombre Completo");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 140, 30));
 
         txtnombre.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        txtnombre.setForeground(new java.awt.Color(0, 0, 0));
         txtnombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtnombreFocusLost(evt);
@@ -99,6 +101,7 @@ public class Registro extends javax.swing.JFrame {
         getContentPane().add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 250, 30));
 
         jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 32)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Crear cuenta");
         jLabel3.setToolTipText("");
@@ -113,9 +116,9 @@ public class Registro extends javax.swing.JFrame {
         });
         getContentPane().add(bnX, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 50, 30));
 
-        bnIniciar.setBackground(new java.awt.Color(0, 0, 0));
+        bnIniciar.setBackground(new java.awt.Color(255, 255, 255));
         bnIniciar.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
-        bnIniciar.setForeground(new java.awt.Color(255, 255, 255));
+        bnIniciar.setForeground(new java.awt.Color(0, 0, 0));
         bnIniciar.setText("Siguiente ");
         bnIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bnIniciar.addActionListener(new java.awt.event.ActionListener() {
@@ -126,11 +129,13 @@ public class Registro extends javax.swing.JFrame {
         getContentPane().add(bnIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 530, 250, 30));
 
         jLabel4.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Nombre usuario");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 220, 30));
 
         txtusername.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        txtusername.setForeground(new java.awt.Color(0, 0, 0));
         txtusername.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtusernameFocusLost(evt);
@@ -144,16 +149,19 @@ public class Registro extends javax.swing.JFrame {
         getContentPane().add(txtusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 210, 250, 30));
 
         jLabel5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("Contraseña");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 110, 30));
 
         jLabel6.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Fecha");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 390, 170, 30));
 
         txtedad.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        txtedad.setForeground(new java.awt.Color(0, 0, 0));
         txtedad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtedadFocusLost(evt);
@@ -167,18 +175,25 @@ public class Registro extends javax.swing.JFrame {
         getContentPane().add(txtedad, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, 250, 30));
 
         jLabel7.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Edad");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 320, 220, 30));
 
-        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jSeparator1.setBackground(new java.awt.Color(0, 153, 255));
+        jSeparator1.setForeground(new java.awt.Color(0, 153, 255));
+        jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 2));
         jSeparator1.setOpaque(true);
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 260, -1));
 
+        rdF.setBackground(new java.awt.Color(0, 153, 255));
         gpgenero.add(rdF);
         rdF.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        rdF.setForeground(new java.awt.Color(255, 255, 255));
         rdF.setText("Femenino");
+        rdF.setContentAreaFilled(false);
+        rdF.setFocusable(false);
+        rdF.setOpaque(false);
         rdF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdFActionPerformed(evt);
@@ -186,9 +201,15 @@ public class Registro extends javax.swing.JFrame {
         });
         getContentPane().add(rdF, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 490, -1, -1));
 
+        rdM.setBackground(new java.awt.Color(0, 102, 255));
         gpgenero.add(rdM);
         rdM.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        rdM.setForeground(new java.awt.Color(255, 255, 255));
         rdM.setText("Masculino");
+        rdM.setContentAreaFilled(false);
+        rdM.setFocusPainted(false);
+        rdM.setRequestFocusEnabled(false);
+        rdM.setRolloverEnabled(false);
         getContentPane().add(rdM, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 490, -1, -1));
 
         lbfecha.setBackground(new java.awt.Color(255, 255, 255));
@@ -204,10 +225,14 @@ public class Registro extends javax.swing.JFrame {
         getContentPane().add(lbfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 420, 250, 30));
 
         jLabel9.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Genero");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, 220, 30));
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 800, 570));
+
+        jLabel8.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel8.setOpaque(true);
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 590));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -267,7 +292,7 @@ public class Registro extends javax.swing.JFrame {
         && generoSeleccionado) {
         
         if (!user.usuarioExiste(username)) {
-            if (user.agregarUser(nombre, genero, username, password, fecha, edad, estado)) {
+            if (user.agregarUser(nombre, genero, username, password, fecha, edad, true)) {
                 JOptionPane.showMessageDialog(null, "Registrado Exitosamente");
                 this.setVisible(false);
                 new Apariencia(user).setVisible(true);

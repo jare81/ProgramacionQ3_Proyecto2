@@ -9,6 +9,8 @@ import Code.Twits;
 import Code.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.time.LocalTime;
@@ -18,13 +20,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
+import javax.swing.JTextArea;
 
 public class Apariencia extends javax.swing.JFrame {
       private ManejoUsuario user;
       int max=140;
       private TimeLine timeLinePanel;
       private Interacciones timeLinePanel2;
-      
+      Interacciones inter = new Interacciones(user); 
     /**
      * Creates new form Apariencia
      */
@@ -46,15 +49,20 @@ public class Apariencia extends javax.swing.JFrame {
         areapost.setLineWrap(true);  
         areapost.setWrapStyleWord(true);
         
+        hashs.setLineWrap(true);  
+        hashs.setWrapStyleWord(true);
+        
         lbhora.setVisible(false);
          
-        timeLinePanel = new TimeLine(user);
+         timeLinePanel = new TimeLine(user);
         timeLinePanel2 = new Interacciones(user);
      
          mostrarHash();
+         
+         
     }
     
-    
+     
     
     private void actualizarUsuario() {
         lbnombre.setText(user.mostrarNombre());
@@ -64,9 +72,9 @@ public class Apariencia extends javax.swing.JFrame {
         char genero = user.mostrarGenero();
 
         if (genero == 'M') {
-            rutaImagen = "/Images/male.png"; 
+            rutaImagen = "/Images/male64.png"; 
         } else if (genero == 'F') {
-            rutaImagen = "/Images/female.png"; 
+            rutaImagen = "/Images/female64.png"; 
         }
 
             java.net.URL imgURL = getClass().getResource(rutaImagen);
@@ -119,20 +127,27 @@ public class Apariencia extends javax.swing.JFrame {
       public void mostrarHash() {
         hashs.setText("");
         
-        Twits[] hashtags = user.obtenerHashtagActual();
+        //Twits[] hashtags = user.obtenerHashtagActual();
+        Twits[] hashtags = user.obtenerHashtasG();
 
-        for (Twits hash : hashtags) {
+        /*for (Twits hash : hashtags) {
             if (hash != null) {
                 hashs.append(hash.toString() + "\n\n");
                   
             }
-        }
+        }*/
+        
+          for (int i = hashtags.length-1; i >=0; i--) {
+              if (hashtags[i] != null) {
+                hashs.append(hashtags[i].toString2() + "\n\n");
+                  
+            }
+          }
         
         revalidate();
         repaint();
     }
-     
-  
+    
     
 
     /**
@@ -160,7 +175,6 @@ public class Apariencia extends javax.swing.JFrame {
         lbfoto5 = new javax.swing.JLabel();
         lbfoto6 = new javax.swing.JLabel();
         lbfoto7 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         bnpublicar = new javax.swing.JButton();
@@ -170,18 +184,22 @@ public class Apariencia extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         hashs = new javax.swing.JTextArea();
-        jTextField2 = new javax.swing.JTextField();
+        txfbhash = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         contenido = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        bnuser.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
+        bnuser.setBackground(new java.awt.Color(0, 153, 255));
+        bnuser.setFont(new java.awt.Font("Berlin Sans FB", 0, 17)); // NOI18N
+        bnuser.setForeground(new java.awt.Color(0, 0, 0));
         bnuser.setText("username");
         bnuser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,15 +209,16 @@ public class Apariencia extends javax.swing.JFrame {
         jPanel1.add(bnuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 570, 160, 20));
 
         lbnombre.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        lbnombre.setForeground(new java.awt.Color(255, 255, 255));
         lbnombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbnombre.setText("Nombre Completo");
         jPanel1.add(lbnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 540, 200, 25));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/twitter128.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/twitterazul128.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 130, 110));
 
         bncerrar.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
-        bncerrar.setForeground(new java.awt.Color(204, 0, 0));
+        bncerrar.setForeground(new java.awt.Color(0, 153, 255));
         bncerrar.setText("Cerrar Sesion");
         bncerrar.setBorderPainted(false);
         bncerrar.setContentAreaFilled(false);
@@ -213,6 +232,7 @@ public class Apariencia extends javax.swing.JFrame {
         jPanel1.add(bncerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 180, -1));
 
         bninterac.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
+        bninterac.setForeground(new java.awt.Color(255, 255, 255));
         bninterac.setText("Interacciones");
         bninterac.setBorderPainted(false);
         bninterac.setContentAreaFilled(false);
@@ -226,6 +246,7 @@ public class Apariencia extends javax.swing.JFrame {
         jPanel1.add(bninterac, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 200, -1));
 
         bnperfil.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
+        bnperfil.setForeground(new java.awt.Color(255, 255, 255));
         bnperfil.setText("Perfil");
         bnperfil.setBorderPainted(false);
         bnperfil.setContentAreaFilled(false);
@@ -239,6 +260,7 @@ public class Apariencia extends javax.swing.JFrame {
         jPanel1.add(bnperfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 200, -1));
 
         bnhash.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
+        bnhash.setForeground(new java.awt.Color(255, 255, 255));
         bnhash.setText("Hashtags");
         bnhash.setBorderPainted(false);
         bnhash.setContentAreaFilled(false);
@@ -252,6 +274,7 @@ public class Apariencia extends javax.swing.JFrame {
         jPanel1.add(bnhash, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 200, -1));
 
         bntimeline.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
+        bntimeline.setForeground(new java.awt.Color(255, 255, 255));
         bntimeline.setText("Time Line");
         bntimeline.setBorderPainted(false);
         bntimeline.setContentAreaFilled(false);
@@ -265,6 +288,7 @@ public class Apariencia extends javax.swing.JFrame {
         jPanel1.add(bntimeline, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 200, -1));
 
         bnpostear.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
+        bnpostear.setForeground(new java.awt.Color(255, 255, 255));
         bnpostear.setText("Postear");
         bnpostear.setBorderPainted(false);
         bnpostear.setContentAreaFilled(false);
@@ -291,32 +315,36 @@ public class Apariencia extends javax.swing.JFrame {
         lbfoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/perfil4 (1)perfil5.png"))); // NOI18N
         jPanel1.add(lbfoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 90, 80));
 
-        lbfoto3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/postear24.png"))); // NOI18N
-        jPanel1.add(lbfoto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 30, 30));
+        lbfoto3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/send.png"))); // NOI18N
+        jPanel1.add(lbfoto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 40, -1));
 
-        lbfoto4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/home24.png"))); // NOI18N
+        lbfoto4.setBackground(new java.awt.Color(255, 255, 255));
+        lbfoto4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell\\OneDrive - Universidad Tecnologica Centroamericana\\Documentos\\NetBeansProjects\\Project2\\Project2\\src\\Images\\homeazul24.png")); // NOI18N
         jPanel1.add(lbfoto4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 30, 30));
 
-        lbfoto5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/interac24.png"))); // NOI18N
+        lbfoto5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell\\OneDrive - Universidad Tecnologica Centroamericana\\Documentos\\NetBeansProjects\\Project2\\Project2\\src\\Images\\interacazul24.png")); // NOI18N
         jPanel1.add(lbfoto5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 30, 30));
 
-        lbfoto6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/profile24.png"))); // NOI18N
-        jPanel1.add(lbfoto6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, 30));
+        lbfoto6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell\\OneDrive - Universidad Tecnologica Centroamericana\\Documentos\\NetBeansProjects\\Project2\\Project2\\src\\Images\\user23.png")); // NOI18N
+        jPanel1.add(lbfoto6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 40, 30));
 
-        lbfoto7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/hash24.png"))); // NOI18N
+        lbfoto7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell\\OneDrive - Universidad Tecnologica Centroamericana\\Documentos\\NetBeansProjects\\Project2\\Project2\\src\\Images\\hashtag24.png")); // NOI18N
         jPanel1.add(lbfoto7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 30, 30));
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, -10, 1350, 680));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 300, 640));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 300, 640));
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("¿En qué estás pensando?");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 210, 20));
 
+        bnpublicar.setBackground(new java.awt.Color(255, 255, 255));
         bnpublicar.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        bnpublicar.setForeground(new java.awt.Color(0, 0, 0));
         bnpublicar.setText("Publicar");
         bnpublicar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bnpublicar.addActionListener(new java.awt.event.ActionListener() {
@@ -324,9 +352,11 @@ public class Apariencia extends javax.swing.JFrame {
                 bnpublicarActionPerformed(evt);
             }
         });
-        jPanel3.add(bnpublicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, -1, -1));
+        jPanel3.add(bnpublicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(603, 20, 100, -1));
 
+        bncancel.setBackground(new java.awt.Color(255, 255, 255));
         bncancel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        bncancel.setForeground(new java.awt.Color(0, 0, 0));
         bncancel.setText("Cancelar");
         bncancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bncancel.addActionListener(new java.awt.event.ActionListener() {
@@ -334,47 +364,77 @@ public class Apariencia extends javax.swing.JFrame {
                 bncancelActionPerformed(evt);
             }
         });
-        jPanel3.add(bncancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, -1, -1));
+        jPanel3.add(bncancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(489, 20, 100, -1));
 
         lbhora.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lbhora.setText("00:00");
-        jPanel3.add(lbhora, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 40, 40));
+        jPanel3.add(lbhora, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 90, 40, 40));
 
+        areapost.setBackground(new java.awt.Color(0, 0, 0));
         areapost.setColumns(20);
         areapost.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        areapost.setForeground(new java.awt.Color(255, 255, 255));
         areapost.setRows(5);
-        areapost.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white)));
+        areapost.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 255), 2));
         areapost.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 areapostFocusLost(evt);
             }
         });
-        jPanel3.add(areapost, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 660, 70));
+        jPanel3.add(areapost, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 700, 70));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 720, 140));
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel4.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        hashs.setEditable(false);
+        hashs.setBackground(new java.awt.Color(0, 0, 0));
         hashs.setColumns(20);
+        hashs.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        hashs.setForeground(new java.awt.Color(255, 255, 255));
         hashs.setRows(5);
+        hashs.setBorder(null);
         jScrollPane1.setViewportView(hashs);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 250, 500));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 250, 500));
 
-        jTextField2.setText("Buscar");
-        jTextField2.setToolTipText("");
-        jPanel4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 190, 40));
+        txfbhash.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        txfbhash.setForeground(new java.awt.Color(0, 0, 0));
+        txfbhash.setText("Buscar");
+        txfbhash.setToolTipText("");
+        txfbhash.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txfbhashFocusLost(evt);
+            }
+        });
+        txfbhash.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txfbhashMousePressed(evt);
+            }
+        });
+        txfbhash.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfbhashActionPerformed(evt);
+            }
+        });
+        txfbhash.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txfbhashKeyTyped(evt);
+            }
+        });
+        jPanel4.add(txfbhash, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 220, 40));
 
         jLabel4.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("HASHTAGS");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/lupa32.png"))); // NOI18N
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, 40));
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell\\OneDrive - Universidad Tecnologica Centroamericana\\Documentos\\NetBeansProjects\\Project2\\Project2\\src\\Images\\lupaazul32.png")); // NOI18N
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, 40));
 
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 10, 270, 640));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 10, 290, 640));
 
         contenido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -390,6 +450,10 @@ public class Apariencia extends javax.swing.JFrame {
         );
 
         getContentPane().add(contenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, 720, 490));
+
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setOpaque(true);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1380, 670));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -407,6 +471,7 @@ public class Apariencia extends javax.swing.JFrame {
     private void bninteracActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bninteracActionPerformed
        Interacciones p2 = new Interacciones(user);
         mostrarPanel(p2);
+        inter.mostrarMenciones();
        
     }//GEN-LAST:event_bninteracActionPerformed
 
@@ -420,8 +485,9 @@ public class Apariencia extends javax.swing.JFrame {
     }//GEN-LAST:event_bnhashActionPerformed
 
     private void bntimelineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntimelineActionPerformed
-        TimeLine p1 = new TimeLine(user);
+       TimeLine p1 = new TimeLine(user);
         mostrarPanel(p1);
+        p1.mostrarTwit();
     }//GEN-LAST:event_bntimelineActionPerformed
 
     private void bnpostearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bnpostearMouseClicked
@@ -444,20 +510,24 @@ public class Apariencia extends javax.swing.JFrame {
         if (!areapost.getText().isEmpty()) {
             String contenido = areapost.getText();
             user.agregarTwitActual(user.mostrarNombre(), contenido, hora);
-
-            timeLinePanel.mostrarTwit();
             
             
+           // timeLinePanel2.m
+           
             JOptionPane.showMessageDialog(null, "Post publicado");
+            inter.mostrarMenciones();
             mostrarHash();
-            
+             timeLinePanel.mostrarTwit();
             
             areapost.setText("");
             
-        
+             mostrarPanel(timeLinePanel);
         } else {
             JOptionPane.showMessageDialog(null, "Sin contenido");
         }
+        
+        
+
     }//GEN-LAST:event_bnpublicarActionPerformed
 
     private void bncancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bncancelActionPerformed
@@ -479,6 +549,37 @@ public class Apariencia extends javax.swing.JFrame {
     private void bnpostearFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_bnpostearFocusGained
        
     }//GEN-LAST:event_bnpostearFocusGained
+
+    private void txfbhashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfbhashActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfbhashActionPerformed
+
+    private void txfbhashMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txfbhashMousePressed
+       txfbhash.setText("");
+       
+       
+    }//GEN-LAST:event_txfbhashMousePressed
+
+    private void txfbhashKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfbhashKeyTyped
+      
+        
+        String palabraClave = "#" + txfbhash.getText();
+    Twits[] hashtagsEncontrados = user.buscarHashtags(palabraClave);
+
+    hashs.setText("");
+    
+    for (Twits hashtag : hashtagsEncontrados) {
+        if (hashtag != null) {
+            hashs.append(hashtag.toString2() + "\n");
+        }
+    }
+    }//GEN-LAST:event_txfbhashKeyTyped
+
+    private void txfbhashFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txfbhashFocusLost
+        if(txfbhash.getText().isEmpty()){
+            mostrarHash();
+        }
+    }//GEN-LAST:event_txfbhashFocusLost
 
     /**
      * @param args the command line arguments
@@ -539,7 +640,6 @@ public class Apariencia extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lbfoto;
     private javax.swing.JLabel lbfoto3;
     private javax.swing.JLabel lbfoto4;
@@ -548,5 +648,6 @@ public class Apariencia extends javax.swing.JFrame {
     private javax.swing.JLabel lbfoto7;
     private javax.swing.JLabel lbhora;
     private javax.swing.JLabel lbnombre;
+    private javax.swing.JTextField txfbhash;
     // End of variables declaration//GEN-END:variables
 }

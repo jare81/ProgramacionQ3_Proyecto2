@@ -6,6 +6,7 @@ package Interfaz;
 
 import Code.ManejoUsuario;
 import Code.Twits;
+import Code.Usuario;
 
 /**
  *
@@ -19,23 +20,40 @@ public class Interacciones extends javax.swing.JPanel {
         initComponents();
         this.user=user;
         mostrarMenciones();
+        
     }
     
      public void mostrarMenciones() {
-        men.setText("");
-        
-        Twits[] menciones = user.obtenerMencionActual();
+     if (user != null) { 
+         //user logg
+            Usuario usuarioActual = user.obtenerUsuarioActual(); 
 
-        for (Twits mencion : menciones) {
-            if (mencion != null) {
-                men.append(mencion.toString() + "\n\n");
-                  
-            }
+            Twits[] mencionesGlobales = user.obtenerMencionesG();
+            
+            // Iterar sobre las menciones globales
+            /*for (Twits mencion : mencionesGlobales) {
+                if (mencion.getContenido().contains("@" + usuarioActual.getUsername())) {
+                      men.append(mencion.toString() + "\n\n");// O actualizar el JTextArea con la mención
+                }
+            }*/
+            
+            for (int i = mencionesGlobales.length-1; i >=0; i--) {
+             if (mencionesGlobales[i].getContenido().contains("@" + usuarioActual.getUsername())) {
+                      men.append(mencionesGlobales[i].toString() + "\n\n");// O actualizar el JTextArea con la mención
+                }
+         }
+            
+            
+        } else {
+            System.out.println("El usuario es null");
         }
-        
+
         revalidate();
         repaint();
     }
+
+     
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,19 +68,25 @@ public class Interacciones extends javax.swing.JPanel {
         men = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
 
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        setBackground(new java.awt.Color(0, 0, 0));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
         setMaximumSize(new java.awt.Dimension(720, 490));
         setMinimumSize(new java.awt.Dimension(720, 490));
         setPreferredSize(new java.awt.Dimension(720, 490));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        men.setEditable(false);
+        men.setBackground(new java.awt.Color(0, 0, 0));
         men.setColumns(20);
+        men.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        men.setForeground(new java.awt.Color(255, 255, 255));
         men.setRows(5);
         jScrollPane1.setViewportView(men);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 700, 400));
 
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Menciones...");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 340, -1));
     }// </editor-fold>//GEN-END:initComponents

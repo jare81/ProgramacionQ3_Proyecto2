@@ -13,6 +13,12 @@ public class ManejoUsuario {
     private Usuario usuarios[];
     private int contadorUsers;
     private Usuario usuarioActual;
+    private Twits[] TwitsG;
+    private int indexTwitsG;
+    
+     private Twits[] HashtagsG;
+    private int indexHashtagsG;
+    
     private String otroUser="";
     
  
@@ -27,6 +33,12 @@ public class ManejoUsuario {
       contadorUsers=0;
       usuarioActual = null;
       
+      TwitsG = new Twits[100];
+      indexTwitsG=0;
+      
+     this.HashtagsG = new Twits[100]; // Inicializar el arreglo de hashtags con el tamaño adecuado
+     this.indexHashtagsG = 0;
+      
     }
     
     private Usuario buscar(String username) {
@@ -36,6 +48,41 @@ public class ManejoUsuario {
             }
         }
         return null;
+    }
+    
+    
+    public Usuario[] buscarUsuarios(String palabraClave) {
+        Usuario[] resultados = new Usuario[contadorUsers];
+        int contadorResultados = 0;
+
+        for (int i = 0; i < contadorUsers; i++) {
+            if (usuarios[i] != null 
+                && usuarios[i].isActivo() // Solo incluir cuentas activas
+                && (usuarios[i].getNombre_user().contains(palabraClave) 
+                || usuarios[i].getUsername().contains(palabraClave))) {
+                resultados[contadorResultados] = usuarios[i];
+                contadorResultados++;
+            }
+        }
+
+        Usuario[] resultadosFinales = new Usuario[contadorResultados];
+        System.arraycopy(resultados, 0, resultadosFinales, 0, contadorResultados);
+
+        return resultadosFinales;
+    }
+    
+     public boolean cambiarEstadoUsuario(String username, boolean nuevoEstado) {
+        Usuario usuario = obtenerUsuario(username);
+        if (usuario != null) {
+             usuario.cambiarEstado(nuevoEstado);
+            return true;
+        }
+        return false;
+    }
+    
+    
+    public Usuario obtenerUsuarioActual() {
+    return usuarioActual;
     }
      
     
@@ -51,22 +98,23 @@ public class ManejoUsuario {
      public  boolean agregarUser (String nombre_user, char genero, String username, String contrasena, String fecha, int edad, boolean estado){
          
             if (contadorUsers < usuarios.length) {
-            Usuario nuevoUsuario = new Usuario(nombre_user, genero, username, contrasena, fecha, edad, estado);
+            Usuario nuevoUsuario = new Usuario(nombre_user, genero, username, contrasena, fecha, edad, estado, this);
             usuarios[contadorUsers] = nuevoUsuario;
             contadorUsers++;
             
             // Si no hay un usuario conectado hacer que el nuevo usuario sea el usuario actual
-            if (usuarioActual == null) {
                 usuarioActual = nuevoUsuario;
-            }
                 return true;
             
             } else {
-                return false;
-            }
+        System.out.println("No se puede agregar más usuarios.");
+        return false;
+    }
     
          
      }
+     
+    
      
      
         public boolean usuarioExiste(String username) {
@@ -77,6 +125,8 @@ public class ManejoUsuario {
         }
         return false;
     }
+        
+     
         
       
     public Usuario obtenerUsuario(String username) {
@@ -167,6 +217,13 @@ public class ManejoUsuario {
         return "Sin Fecha"; 
     }
      
+      public boolean mostrarEstado() {
+         if (usuarioActual != null) {
+            return usuarioActual.isActivo();
+        }
+        return false; 
+    }
+     
    public void agregarTwitActual(String username, String contenido, String hora) {
        
        if (usuarioActual != null) {
@@ -186,7 +243,7 @@ public class ManejoUsuario {
     
     }
     
-    public Twits[] obtenerHashtagActual() {
+  /* public Twits[] obtenerHashtagActual() {
         if (usuarioActual != null) {
             return usuarioActual.getHashtag();
         } else {
@@ -195,110 +252,85 @@ public class ManejoUsuario {
      
     }
     
-     public Twits[] obtenerMencionActual() {
+    public Twits[] obtenerMencionActual() {
         if (usuarioActual != null) {
             return usuarioActual.getMenciones();
         } else {
             return new Twits[0];
         }
+          
      
-    }
-    
-    
-    
-    
-    
-    
-     
-      /* public Usuario obtenerUsuario(String username) {
-        for (Usuario usuario : usuarios) {
-            if (usuario != null && usuario.getUsername().equals(username)) {
-                return usuario;
-            }
-        }
-        return null; // Usuario no encontrado
-    }
-       
-       
-    
-    
-   public int buscar (String username){
-       
-       for(int i=0; i<usuarios.length; i++){
-           if(usuarios[i] != null && usuarios[i].getUsername().equals(username)){
-               return i;  
-           }
-       }
-           return -1;
-       
-   } 
-   
-    public String user(String username, String password) {
-         Usuario usuario = obtenerUsuario(username);
-         if (usuario != null) {
-             nombre=usuario.getUsername();
-             return nombre; // Devuelve el nombre del usuario
-         }
-         return "Usuario no encontrado"; // Mensaje si el usuario no se encuentra
-     }
-
-       public  boolean userActual(String username){
-           Usuario usuario = obtenerUsuario(username);
-           if (usuario != null) {
-             return true; // Devuelve el nombre del usuario
-             }
-             return false;
-         }
-   
-   public boolean insertar (Usuario usuario){
-       if(buscar(usuario.getUsername())==-1){
-           for(int i=0; i<usuarios.length; i++){
-               if(usuarios[i]==null){
-                   usuarios[i]=usuario;
-                   
-                   return true; }        
-               }
-        }
-           return false;
-   }
-   
-    
-   
-   public boolean modificar (Usuario usuario){
-      int indice = buscar(usuario.getUsername());
-        if (indice != -1) {
-            usuarios[indice].setContrasena(usuario.getContrasena());
-            usuarios[indice].setNombre_user(usuario.getNombre_user());
-          //  usuarios[indice].setGenero(usuario.getGenero());
-            return true;
-        }
-        return false;
-    }
-   
-   public boolean eliminar(String username){
-       int indice =buscar(username);
-        if (indice != -1) { 
-        for (int i = indice; i < usuarios.length - 1; i++) {
-            usuarios[i] = usuarios[i + 1]; 
-        }
-        usuarios[usuarios.length - 1] = null; 
-
-        return true;
-    } 
-        return false; 
-   }
-    
-    public Usuario obtener(String username){
-        int indice = buscar(username);
-        
-        if(buscar(username)!=-1){
-            return usuarios[indice];
-        }
-            return null;
-        
-        
     }*/
     
-      
+    public void agregarHashtagG(Twits twit) {
+        if (indexHashtagsG < HashtagsG.length) {
+            HashtagsG[indexHashtagsG] = twit;
+            indexHashtagsG++;
+        } else {
+            System.out.println("No se pueden agregar más hashtags generales.");
+        }
+    }
+    
+    public Twits[] obtenerHashtasG() {
+        Twits[] hasgtagsActuales = new Twits[indexHashtagsG];
+        System.arraycopy(HashtagsG, 0, hasgtagsActuales, 0, indexHashtagsG);
+        return hasgtagsActuales;
+    }    
+    
+    public Twits[] buscarHashtags(String palabraClave) {
+        Twits[] resultados = new Twits[indexHashtagsG];
+        int contadorResultados = 0;
+        
+        for (int i = 0; i < indexHashtagsG; i++) {
+            if (HashtagsG[i] != null && HashtagsG[i].getContenido().contains(palabraClave)) {
+                resultados[contadorResultados] = HashtagsG[i];
+                contadorResultados++;
+            }
+        }
+        //crear un array que muestre que eocntro
+        Twits[] resultadosFinales = new Twits[contadorResultados];
+        System.arraycopy(resultados, 0, resultadosFinales, 0, contadorResultados);
+
+    return resultadosFinales;
+}
+     
+     public void agregarMencionG(Twits twit) {
+        if (indexTwitsG < TwitsG.length) {
+            TwitsG[indexTwitsG] = twit;
+            indexTwitsG++;
+        } else {
+            System.out.println("No se pueden agregar más twits generales.");
+        }
+    }
+     
+     public Twits[] obtenerMencionesG() {
+        Twits[] mencionesActuales = new Twits[indexTwitsG];
+        System.arraycopy(TwitsG, 0, mencionesActuales, 0, indexTwitsG);
+        return mencionesActuales;
+    }
+     
+     public Twits[] obtenerMencionesUsuarioActual() {
+    if (usuarioActual != null) {
+        String username = usuarioActual.getUsername();
+        //arreglo par guardar las menciones del usuario acttal
+        Twits[] mencionesUsuarioActual = new Twits[indexTwitsG];
+        int contadorMencionesUsuario = 0;
+
+        for (int i = 0; i < indexTwitsG; i++) {
+            Twits twit = TwitsG[i];
+            if (twit.getContenido().contains("@" + username)) {
+                mencionesUsuarioActual[contadorMencionesUsuario] = twit;
+                contadorMencionesUsuario++;
+            }
+        }
+        // tamaño del arreglo de las menciones encontradas
+        Twits[] mencionesFiltradas = new Twits[contadorMencionesUsuario];
+        System.arraycopy(mencionesUsuarioActual, 0, mencionesFiltradas, 0, contadorMencionesUsuario);
+
+        return mencionesFiltradas;
+    }
+    return new Twits[0]; 
+}
+     
     
 }
