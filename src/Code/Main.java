@@ -15,10 +15,11 @@ public class Main {
     public static void main(String[] args) {
         //instancia de manejousuario
         ManejoUsuario user = new ManejoUsuario(100);
-        Interacciones interacciones = new Interacciones(user);
         
-        Apariencia apariencia = new Apariencia(user); 
-        Perfil perfil = new Perfil(user);
+       // Interacciones interacciones = new Interacciones(user);
+        
+        //Apariencia apariencia = new Apariencia(user); 
+        //Perfil perfil = new Perfil(user);
 
         //instancias de los frames y pasar instancia de manejousuario
         Iniciar_Sesion iniciarSesion = new Iniciar_Sesion(user);

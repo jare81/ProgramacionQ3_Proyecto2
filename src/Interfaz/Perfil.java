@@ -2,21 +2,71 @@
 package Interfaz;
 
 import Code.ManejoUsuario;
+import Code.SyS;
 import Code.Twits;
 import Code.Usuario;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 
 public class Perfil extends javax.swing.JFrame {
-private ManejoUsuario user; 
+private ManejoUsuario user;
+private Usuario usuario;
+private SyS sys;
     
     public Perfil(ManejoUsuario user) {
         this.user=user;
-        
         initComponents();
+        usuario = user.obtenerUsuarioActual();
+        sys = usuario.getSyS();
+        
         actualizarUsuario();
-        mostrarTwit();
+         mostrarTwit();
+         
+       // aaa();
+         
+        listaUsuarios.addListSelectionListener(new ListSelectionListener() {
+                    public void valueChanged(ListSelectionEvent e) {
+                        if (!e.getValueIsAdjusting() && listaUsuarios.getSelectedIndex() != -1) {
+                            bnentrar.setEnabled(true);
+                        } else {
+                            bnentrar.setEnabled(false);
+                        }
+                    }
+                });
+                bnentrar.setEnabled(false);
+        
+        
+    }
+    
+    //NO USADOO PERO AQUI ESTA POR SI ACASO
+    public void aaa(){
+        usuario = user.obtenerUsuarioActual();
+        if (usuario != null) {
+            sys = usuario.getSyS(); 
+            if (sys != null) {
+               actualizarUsuario();
+                 mostrarTwit();
+              
+                listaUsuarios.addListSelectionListener(new ListSelectionListener() {
+                    public void valueChanged(ListSelectionEvent e) {
+                        if (!e.getValueIsAdjusting() && listaUsuarios.getSelectedIndex() != -1) {
+                            bnentrar.setEnabled(true);
+                        } else {
+                            bnentrar.setEnabled(false);
+                        }
+                    }
+                });
+                bnentrar.setEnabled(false);
+            } else {
+                System.err.println("El sistema del usuario es null.");
+            }
+        } else {
+            System.err.println("El usuario actual es null.");
+        }
     }
 
     
@@ -24,6 +74,16 @@ private ManejoUsuario user;
         lbnombre.setText(user.mostrarNombre());
         bnuser.setText("@ " + user.mostrarUser());
         lbfecha.setText(user.mostrarFecha());
+        lbedad.setText(Integer.toString(user.mostrarEdad()));
+        char gen = user.mostrarGenero();
+        lbsiguiendo.setText(Integer.toString(sys.cantidadSeguidos()));
+        lbseguidores.setText(Integer.toString(sys.cantidadSeguidores()));
+        
+        if(gen=='M'){
+            lbgenero.setText("Masculino");
+        }else if (gen=='F'){
+            lbgenero.setText("Femenino");
+        }
         
         String rutaImagen = "";
         char genero = user.mostrarGenero();
@@ -56,7 +116,7 @@ private ManejoUsuario user;
      public void mostrarTwit() {
         jTextArea1.setText("");
         
-         Twits[] twits = user.obtenerTwitsActual();
+         Twits[] twits = usuario.getTwits();
 
         // Recorremos el arreglo en orden inverso
         for (int i = twits.length - 1; i >= 0; i--) {
@@ -89,13 +149,18 @@ private ManejoUsuario user;
         bnback = new javax.swing.JButton();
         txfbperfil = new javax.swing.JTextField();
         are3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        areabuscar = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listaUsuarios = new javax.swing.JList<>();
         lbcalendario1 = new javax.swing.JLabel();
         area = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        bnentrar = new javax.swing.JButton();
+        lbnombre5 = new javax.swing.JLabel();
+        lbedad = new javax.swing.JLabel();
+        lbgenero = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         Fonde = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -167,16 +232,16 @@ private ManejoUsuario user;
         getContentPane().add(lbcalendario, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 40, 40, 40));
 
         lbfecha.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
-        lbfecha.setForeground(new java.awt.Color(255, 255, 255));
+        lbfecha.setForeground(new java.awt.Color(153, 153, 153));
         lbfecha.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbfecha.setText("10/12/15");
-        getContentPane().add(lbfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, 100, 25));
+        getContentPane().add(lbfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, 100, 25));
 
         lbfecha1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
-        lbfecha1.setForeground(new java.awt.Color(255, 255, 255));
+        lbfecha1.setForeground(new java.awt.Color(153, 153, 153));
         lbfecha1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbfecha1.setText("Se unió en");
-        getContentPane().add(lbfecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 90, 25));
+        getContentPane().add(lbfecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 90, 25));
 
         bnactivar.setBackground(new java.awt.Color(0, 153, 255));
         bnactivar.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
@@ -221,42 +286,36 @@ private ManejoUsuario user;
         getContentPane().add(txfbperfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 40, 450, 40));
 
         are3.setBackground(new java.awt.Color(0, 0, 0));
-        are3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         are3.setOpaque(false);
 
-        areabuscar.setEditable(false);
-        areabuscar.setBackground(new java.awt.Color(0, 0, 0));
-        areabuscar.setColumns(20);
-        areabuscar.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
-        areabuscar.setForeground(new java.awt.Color(255, 255, 255));
-        areabuscar.setRows(5);
-        areabuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
-        jScrollPane2.setViewportView(areabuscar);
+        listaUsuarios.setBackground(new java.awt.Color(0, 0, 0));
+        listaUsuarios.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        listaUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane4.setViewportView(listaUsuarios);
 
         javax.swing.GroupLayout are3Layout = new javax.swing.GroupLayout(are3);
         are3.setLayout(are3Layout);
         are3Layout.setHorizontalGroup(
             are3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(are3Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                .addContainerGap())
         );
         are3Layout.setVerticalGroup(
             are3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(are3Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        getContentPane().add(are3, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 160, 490, 530));
+        getContentPane().add(are3, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 140, 490, 570));
 
-        lbcalendario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/calendar24.png"))); // NOI18N
-        getContentPane().add(lbcalendario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, -1, -1));
+        lbcalendario1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell\\OneDrive - Universidad Tecnologica Centroamericana\\Documentos\\NetBeansProjects\\Project2\\Project2\\src\\Images\\calendarazul24.png")); // NOI18N
+        getContentPane().add(lbcalendario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 310, -1, -1));
 
         area.setBackground(new java.awt.Color(0, 0, 0));
-        area.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         area.setOpaque(false);
 
         jTextArea1.setEditable(false);
@@ -273,28 +332,60 @@ private ManejoUsuario user;
         areaLayout.setHorizontalGroup(
             areaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(areaLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         areaLayout.setVerticalGroup(
             areaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(areaLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        getContentPane().add(area, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 920, 320));
+        getContentPane().add(area, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 920, 320));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 0));
-        jButton1.setText("Entrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bnentrar.setBackground(new java.awt.Color(0, 153, 255));
+        bnentrar.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        bnentrar.setForeground(new java.awt.Color(0, 0, 0));
+        bnentrar.setText("Entrar");
+        bnentrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bnentrarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 100, 120, -1));
+        getContentPane().add(bnentrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 100, 120, -1));
+
+        lbnombre5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        lbnombre5.setForeground(new java.awt.Color(153, 153, 153));
+        lbnombre5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbnombre5.setText("años");
+        getContentPane().add(lbnombre5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, 70, 25));
+
+        lbedad.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        lbedad.setForeground(new java.awt.Color(153, 153, 153));
+        lbedad.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbedad.setText("Edad");
+        getContentPane().add(lbedad, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 340, 40, 25));
+
+        lbgenero.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        lbgenero.setForeground(new java.awt.Color(153, 153, 153));
+        lbgenero.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbgenero.setText("Genero");
+        getContentPane().add(lbgenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, 100, 25));
+
+        jButton1.setBackground(new java.awt.Color(0, 153, 255));
+        jButton1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("No Seguir");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1326, 100, 120, -1));
+
+        jButton2.setBackground(new java.awt.Color(0, 153, 255));
+        jButton2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 0, 0));
+        jButton2.setText("Seguir ");
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 100, 120, -1));
 
         Fonde.setBackground(new java.awt.Color(0, 0, 0));
         Fonde.setForeground(new java.awt.Color(255, 255, 255));
@@ -305,7 +396,10 @@ private ManejoUsuario user;
     }// </editor-fold>//GEN-END:initComponents
 
     private void bnseguidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnseguidosActionPerformed
-        // TODO add your handling code here:
+        
+        
+        
+        
     }//GEN-LAST:event_bnseguidosActionPerformed
 
     private void bnseguidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnseguidoresActionPerformed
@@ -322,21 +416,39 @@ private ManejoUsuario user;
     }//GEN-LAST:event_txfbperfilMousePressed
 
     private void txfbperfilKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfbperfilKeyTyped
-        String palabraClave = txfbperfil.getText(); 
-        Usuario[] usuariosEncontrados = user.buscarUsuarios(palabraClave); 
+        String palabraClave = txfbperfil.getText().trim(); // Obtener y limpiar espacios
 
-        areabuscar.setText(""); 
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+
+        if (palabraClave.isEmpty()) {
+            Usuario[] todosLosUsuarios = user.obtenerTodosLosUsuarios();
+            for (Usuario usuario : todosLosUsuarios) {
+                if (usuario != null) {
+                    modelo.addElement(usuario.getNombre_user() + " - @" + usuario.getUsername());
+                }
+            }
+        } else {
+            Usuario[] resultados = user.buscarUsuarios(palabraClave);
+            for (Usuario usuario : resultados) {
+                if (usuario != null) {
+                    modelo.addElement(usuario.getNombre_user() + " - @" + usuario.getUsername() + "\n");
+                }
+            }
+        }
+    
+    // Actualizar la lista de usuarios
+    listaUsuarios.setModel(modelo);
+
+        /*areabuscar.setText(""); 
 
         for (Usuario usuario : usuariosEncontrados) {
             if (usuario != null) {
                 areabuscar.append(usuario.getNombre_user() + " - @" + usuario.getUsername() + "\n-----------------------------------------------------\n"); 
             }
-        }
+        }*/
     }//GEN-LAST:event_txfbperfilKeyTyped
 
     private void bnactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnactivarActionPerformed
-        
-       
         
         if(user.mostrarEstado()==true){
             bnactivar.setText("Activar");
@@ -362,9 +474,26 @@ private ManejoUsuario user;
         // TODO add your handling code here:
     }//GEN-LAST:event_txfbperfilActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void bnentrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnentrarActionPerformed
+        // algo seleccionado
+        String palabraClave = txfbperfil.getText().trim();
+    Usuario[] resultados =  user.buscarUsuarios(palabraClave);
+    
+    int seleccionado = listaUsuarios.getSelectedIndex();
+    
+    if (seleccionado != -1 && resultados != null && seleccionado < resultados.length) {
+        Usuario usuarioSeleccionado = resultados[seleccionado];  
+        
+        OtroPerfil otroPerfil = new OtroPerfil(usuarioSeleccionado); 
+        otroPerfil.setVisible(true);
+    } else {
+        
+        JOptionPane.showMessageDialog(this, "No se econtro ningun usuario '" + txfbperfil.getText().trim() + "'" );
+    }
+    
+    
+        
+    }//GEN-LAST:event_bnentrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -406,25 +535,30 @@ private ManejoUsuario user;
     private javax.swing.JLabel Fonde;
     private javax.swing.JPanel are3;
     private javax.swing.JPanel area;
-    private javax.swing.JTextArea areabuscar;
     private javax.swing.JButton bnactivar;
     private javax.swing.JButton bnback;
+    private javax.swing.JButton bnentrar;
     private javax.swing.JButton bnseguidores;
     private javax.swing.JButton bnseguidos;
     private javax.swing.JButton bnuser;
     private javax.swing.JLabel fondo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbcalendario;
     private javax.swing.JLabel lbcalendario1;
+    private javax.swing.JLabel lbedad;
     private javax.swing.JLabel lbfecha;
     private javax.swing.JLabel lbfecha1;
+    private javax.swing.JLabel lbgenero;
     private javax.swing.JLabel lbnombre;
+    private javax.swing.JLabel lbnombre5;
     private javax.swing.JLabel lbseguidores;
     private javax.swing.JLabel lbsiguiendo;
+    private javax.swing.JList<String> listaUsuarios;
     private javax.swing.JTextField txfbperfil;
     // End of variables declaration//GEN-END:variables
 }

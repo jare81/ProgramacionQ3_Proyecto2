@@ -6,6 +6,7 @@ package Interfaz;
 
 import Code.ManejoUsuario;
 import Code.Twits;
+import Code.Usuario;
 import javax.swing.JSeparator;
 
 /**
@@ -27,6 +28,7 @@ public class TimeLine extends javax.swing.JPanel {
         area.setWrapStyleWord(true);
         
         mostrarTwit();
+       
         
         
     }
@@ -36,16 +38,7 @@ public class TimeLine extends javax.swing.JPanel {
     public void mostrarTwit() {
         area.setText("");
         
-      /*  Twits[] twits = user.obtenerTwitsActual();
-
-        for (Twits twit : twits) {
-            if (twit != null) {
-                area.append(twit.toString() + "\n\n");
-                  
-            }
-        }*/
-        
-        Twits[] twits = user.obtenerTwitsActual();
+        /*----------------Twits[] twits = user.obtenerTwitsActual();
 
         // Recorremos el arreglo en orden inverso
         for (int i = twits.length - 1; i >= 0; i--) {
@@ -55,7 +48,42 @@ public class TimeLine extends javax.swing.JPanel {
         }
         
         revalidate();
+        repaint();----------*/
+        
+        Usuario usuarioActual = user.obtenerUsuarioActual();
+        StringBuilder twitsAcumulados = new StringBuilder();
+
+        Twits[] twitsActual = usuarioActual.getTwits();
+
+        for (int i = twitsActual.length - 1; i >= 0; i--) {
+            if (twitsActual[i] != null) {
+                twitsAcumulados.append(twitsActual[i].toString()).append("\n\n");
+            }
+        }
+
+
+          Usuario[] usuariosSeguidos = usuarioActual.obtenerSeguidos();
+    
+            for (Usuario seguido : usuariosSeguidos) {
+                if (seguido.isActivo()) {
+                    Twits[] twitsSeguido = seguido.getTwits();
+                    
+                    for (int i = twitsSeguido.length - 1; i >= 0; i--) { 
+                        if (twitsSeguido[i] != null) {
+                            twitsAcumulados.append(twitsSeguido[i].toString3()).append("\n\n");
+                        }
+                    }
+                }
+            }
+
+        area.setText(twitsAcumulados.toString());
+
+        revalidate();
         repaint();
+
+        
+        
+        
     }
     
     /**

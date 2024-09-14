@@ -12,18 +12,20 @@ public class Twits {
     private String username;
     private String contenido;
     private String hora;
-     private Twits[] twits;
+    private Twits[] twits;
     private int numTwits;
+    private Usuario usuario; 
     
     int maxi=1000;
     
-    public Twits(String username, String contenido, String hora){
+    public Twits(String username, String contenido, String hora, Usuario usuario){
         this.contenido=contenido;
         this.hora=hora;
         this.username=username;
         
          this.twits= new Twits[maxi];
          this.numTwits=0;
+         this.usuario = usuario; 
     }
     
     public String getUsername(){
@@ -38,12 +40,20 @@ public class Twits {
         return contenido;
     }
     
+    public Usuario getUsuario() {
+        return usuario;  //  que creó el twit
+    }
+    
     public String toString() {
         return "\n     @ " + username + "\n           " + "publicó a las " + hora + "\n           " + contenido + "\n\n_____________________________________________________________________________________";
     }
     
      public String toString2() {
-        return "\n     @ " + username + "\n           " + "publicó a las " + hora + "\n           " + contenido + "\n\n_______________________";
+        return "\n     @ " + username + "\n           " + "publicó " + hora + "\n           " + contenido + "\n\n_____________________________";
+    }
+     
+     public String toString3() {
+        return "\n     @ " + username + " [siguiendo] "+"\n           " + "publicó a las " + hora + "\n           " + contenido + "\n\n_____________________________________________________________________________________";
     }
     
     public void agregarTwit(Twits twit){

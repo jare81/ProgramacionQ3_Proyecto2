@@ -5,11 +5,10 @@
 package Interfaz;
 
 import Code.ManejoUsuario;
-import Code.Usuario;
 
 import java.time.LocalDate;
 
-import java.util.Scanner;
+
 import javax.swing.JOptionPane;
 
 public class Registro extends javax.swing.JFrame {
@@ -25,7 +24,6 @@ public class Registro extends javax.swing.JFrame {
     }
 
     char genero = 0;
-    Scanner entrada = new Scanner(System.in);
     LocalDate today = LocalDate.now();
 
     @SuppressWarnings("unchecked")
@@ -296,6 +294,7 @@ public class Registro extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Registrado Exitosamente");
                 this.setVisible(false);
                 new Apariencia(user).setVisible(true);
+                Perfil perfil = new Perfil(user);
             } else {
                 JOptionPane.showMessageDialog(null, "Error al registrar el usuario");
                    }
@@ -355,22 +354,7 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_txpasswordFocusLost
 
     private void txtedadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtedadFocusLost
-        /*int edad;
-
-        try {
-            edad = Integer.parseInt(txtedad.getText());
-            if (edad >= 12 && edad <= 100) {
-
-            } else {
-                JOptionPane.showMessageDialog(null, "!Error. Rango de edad invalido");
-                txtedad.setText(null);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "!Error. Formato de edad incorrecta");
-
-            txtedad.setText(null);
-
-        }*/
+        
     }//GEN-LAST:event_txtedadFocusLost
 
     /**

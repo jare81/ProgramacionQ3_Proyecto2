@@ -4,6 +4,12 @@
  */
 package Interfaz;
 
+
+import Code.Twits;
+import Code.Usuario;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Dell
@@ -13,8 +19,82 @@ public class OtroPerfil extends javax.swing.JFrame {
     /**
      * Creates new form OtroPerfil
      */
-    public OtroPerfil() {
-        initComponents();
+  
+    Usuario usuario;
+    //SyS sys = new SyS(100);
+    
+    public OtroPerfil(Usuario usuario) {
+       initComponents();
+        this.usuario=usuario;
+         
+        Usuario usuarioActual = usuario.getUser();
+        Usuario usuarioPerfil = usuario;// perfil que se esta viendo
+         
+            if (usuarioActual.equals(usuarioPerfil)) {
+            bnSeguir.setEnabled(false);
+            }
+            else{
+                bnSeguir.setEnabled(true);
+            }
+           
+         //info en labels 
+         
+         lbfecha.setText(usuario.getFecha());
+         lbedad.setText(Integer.toString(usuario.getEdad()));
+         char gen = usuario.getGenero();
+         lbsiguiendo.setText(Integer.toString(usuario.getCantidadSeguidos()));
+         lbseguidores.setText(Integer.toString(usuario.getCantidadSeguidores()));
+         lbnombre1.setText(usuario.getNombre_user());
+         bnuser.setText(usuario.getUsername());
+         
+         //mostrar gen
+         if(gen=='M'){
+             lbgenero.setText("Masculino");}
+         else if (gen=='F'){
+             lbgenero.setText("Femenino");
+         }
+         
+         
+          String rutaImagen = "";
+         if (gen == 'M') {
+            rutaImagen = "/Images/maleazul128.png"; 
+        } else if (gen == 'F') {
+            rutaImagen = "/Images/femaleazul128.png"; 
+        }
+         
+            java.net.URL imgURL = getClass().getResource(rutaImagen);
+        if (imgURL != null) {
+            ImageIcon imagenIcon = new ImageIcon(imgURL);
+            jLabel2.setIcon(imagenIcon);
+        } else {
+            System.err.println("No se pudo encontrar la imagen en la ruta: " + rutaImagen);
+        }
+        
+        
+        jTextArea1.setText("");
+        
+         Twits[] twits = usuario.getTwits();
+
+        // Recorremos el arreglo en orden inverso
+        for (int i = twits.length - 1; i >= 0; i--) {
+            if (twits[i] != null) {
+                jTextArea1.append(twits[i].toString() + "\n\n");
+            }
+        }
+        
+        revalidate();
+        repaint();
+        
+         if (usuarioActual.getSyS().esSeguido(usuarioPerfil)){
+           
+    bnSeguir.setText("Dejar de Seguir");
+    } else {
+    
+
+   
+    bnSeguir.setText("Seguir");
+        
+    }
     }
 
     /**
@@ -35,7 +115,7 @@ public class OtroPerfil extends javax.swing.JFrame {
         bnuser = new javax.swing.JButton();
         lbfecha = new javax.swing.JLabel();
         lbfecha1 = new javax.swing.JLabel();
-        bnactivar = new javax.swing.JButton();
+        bnSeguir = new javax.swing.JButton();
         bnback = new javax.swing.JButton();
         Fonde = new javax.swing.JLabel();
         lbcalendario1 = new javax.swing.JLabel();
@@ -43,16 +123,20 @@ public class OtroPerfil extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         lbnombre1 = new javax.swing.JLabel();
-        lbnombre2 = new javax.swing.JLabel();
-        lbnombre3 = new javax.swing.JLabel();
+        lbgenero = new javax.swing.JLabel();
+        lbedad = new javax.swing.JLabel();
+        lbnombre5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAutoRequestFocus(false);
+        setBackground(new java.awt.Color(0, 0, 0));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/perfil4 (1)perfil5.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, 150));
 
-        fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell\\OneDrive - Universidad Tecnologica Centroamericana\\Documentos\\NetBeansProjects\\Project2\\Project2\\src\\Images\\fondo4.jpg")); // NOI18N
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/fondo6.png"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 880, 190));
 
         lbsiguiendo.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
@@ -113,16 +197,18 @@ public class OtroPerfil extends javax.swing.JFrame {
         lbfecha1.setText("Se unió en");
         getContentPane().add(lbfecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 90, 25));
 
-        bnactivar.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
-        bnactivar.setText("Seguir");
-        bnactivar.addActionListener(new java.awt.event.ActionListener() {
+        bnSeguir.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
+        bnSeguir.setText("Seguir");
+        bnSeguir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bnactivarActionPerformed(evt);
+                bnSeguirActionPerformed(evt);
             }
         });
-        getContentPane().add(bnactivar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 260, 130, 30));
+        getContentPane().add(bnSeguir, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 260, 130, 30));
 
+        bnback.setBackground(new java.awt.Color(255, 255, 255));
         bnback.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
+        bnback.setForeground(new java.awt.Color(0, 153, 255));
         bnback.setText("X ");
         bnback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,13 +220,14 @@ public class OtroPerfil extends javax.swing.JFrame {
         Fonde.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(Fonde, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 0, 10, 730));
 
-        lbcalendario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/calendar24.png"))); // NOI18N
+        lbcalendario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/calendarazul24.png"))); // NOI18N
         getContentPane().add(lbcalendario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, -1, -1));
 
-        area.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        area.setBackground(new java.awt.Color(51, 51, 51));
+        area.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
 
         jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(0, 0, 0));
+        jTextArea1.setBackground(new java.awt.Color(51, 51, 51));
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
@@ -151,17 +238,17 @@ public class OtroPerfil extends javax.swing.JFrame {
         area.setLayout(areaLayout);
         areaLayout.setHorizontalGroup(
             areaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(areaLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, areaLayout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
         areaLayout.setVerticalGroup(
             areaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(areaLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         getContentPane().add(area, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 920, 350));
@@ -172,17 +259,27 @@ public class OtroPerfil extends javax.swing.JFrame {
         lbnombre1.setText("Nombre Completo");
         getContentPane().add(lbnombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 380, 25));
 
-        lbnombre2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
-        lbnombre2.setForeground(new java.awt.Color(255, 255, 255));
-        lbnombre2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbnombre2.setText("Genero");
-        getContentPane().add(lbnombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, 120, 25));
+        lbgenero.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        lbgenero.setForeground(new java.awt.Color(255, 255, 255));
+        lbgenero.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbgenero.setText("Genero");
+        getContentPane().add(lbgenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 370, 100, 25));
 
-        lbnombre3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
-        lbnombre3.setForeground(new java.awt.Color(255, 255, 255));
-        lbnombre3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbnombre3.setText("Edad");
-        getContentPane().add(lbnombre3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 90, 25));
+        lbedad.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        lbedad.setForeground(new java.awt.Color(255, 255, 255));
+        lbedad.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbedad.setText("Edad");
+        getContentPane().add(lbedad, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 340, 40, 25));
+
+        lbnombre5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        lbnombre5.setForeground(new java.awt.Color(255, 255, 255));
+        lbnombre5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbnombre5.setText("años");
+        getContentPane().add(lbnombre5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, 70, 25));
+
+        jLabel1.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel1.setOpaque(true);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 770));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -199,9 +296,28 @@ public class OtroPerfil extends javax.swing.JFrame {
 
     }//GEN-LAST:event_bnuserActionPerformed
 
-    private void bnactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnactivarActionPerformed
+    private void bnSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnSeguirActionPerformed
+    Usuario usuarioActual = usuario.getUser();
+    
+    
+    Usuario usuarioPerfil = usuario;
 
-    }//GEN-LAST:event_bnactivarActionPerformed
+    if (usuarioActual.getSyS().esSeguido(usuarioPerfil)) {
+
+      usuarioActual.getSyS().eliminarSeguido(usuarioPerfil);
+      usuarioPerfil.getSyS().eliminarSeguidor(usuarioActual);
+      bnSeguir.setText("Seguir");
+     } else {
+    usuarioActual.getSyS().agregarSeguido(usuarioPerfil);
+    usuarioPerfil.getSyS().agregarSeguidor(usuarioActual);
+
+    bnSeguir.setText("Dejar de seguir");
+    }   
+   
+    revalidate();
+    repaint();
+
+    }//GEN-LAST:event_bnSeguirActionPerformed
 
     private void bnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnbackActionPerformed
         this.setVisible(false);
@@ -235,31 +351,33 @@ public class OtroPerfil extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+       /* java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new OtroPerfil().setVisible(true);
             }
-        });
+        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Fonde;
     private javax.swing.JPanel area;
-    private javax.swing.JButton bnactivar;
+    private javax.swing.JButton bnSeguir;
     private javax.swing.JButton bnback;
     private javax.swing.JButton bnseguidores;
     private javax.swing.JButton bnseguidos;
     private javax.swing.JButton bnuser;
     private javax.swing.JLabel fondo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbcalendario1;
+    private javax.swing.JLabel lbedad;
     private javax.swing.JLabel lbfecha;
     private javax.swing.JLabel lbfecha1;
+    private javax.swing.JLabel lbgenero;
     private javax.swing.JLabel lbnombre1;
-    private javax.swing.JLabel lbnombre2;
-    private javax.swing.JLabel lbnombre3;
+    private javax.swing.JLabel lbnombre5;
     private javax.swing.JLabel lbseguidores;
     private javax.swing.JLabel lbsiguiendo;
     // End of variables declaration//GEN-END:variables

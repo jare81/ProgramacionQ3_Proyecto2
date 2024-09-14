@@ -22,10 +22,6 @@ public class Iniciar_Sesion extends javax.swing.JFrame {
         
     }
 
-   
-    
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -164,8 +160,10 @@ public class Iniciar_Sesion extends javax.swing.JFrame {
                 
                 JOptionPane.showMessageDialog(null, "Bienvenido :)");
                 who=username;
+                Perfil perfil = new Perfil(user);
                 this.setVisible(false);
                 new Apariencia(user).setVisible(true);
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
             }
