@@ -467,7 +467,6 @@ public class Apariencia extends javax.swing.JFrame {
 
         if (respuesta == JOptionPane.YES_OPTION) {
             if (user.cerrarSesion()) { 
-                JOptionPane.showMessageDialog(null, "Nos vemos...");
                 this.dispose(); 
                 new Iniciar_Sesion(user).setVisible(true); 
             } else {

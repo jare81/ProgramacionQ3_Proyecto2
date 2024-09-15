@@ -180,7 +180,7 @@ public class OtroPerfil extends javax.swing.JFrame {
         lbseguidores.setForeground(new java.awt.Color(255, 255, 255));
         lbseguidores.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbseguidores.setText("0");
-        getContentPane().add(lbseguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 360, 50, 30));
+        getContentPane().add(lbseguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 360, 50, 30));
 
         bnuser.setBackground(new java.awt.Color(0, 153, 255));
         bnuser.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N

@@ -190,11 +190,6 @@ public class Usuario {
     public int getCantidadSeguidos() {
         return sys.cantidadSeguidos(); 
     }
-    
-
-   
-
-
-    
+      
 }
 

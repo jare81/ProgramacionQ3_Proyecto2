@@ -24,7 +24,7 @@ private SyS sys;
         initComponents();
         usuario = user.obtenerUsuarioActual();
         sys = usuario.getSyS();
-     
+        jLabel1.setText("");
         
         actualizarUsuario();
         actualizarDatos();
@@ -183,6 +183,10 @@ private SyS sys;
         bnactivar = new javax.swing.JButton();
         bnback = new javax.swing.JButton();
         txfbperfil = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        lbnombre5 = new javax.swing.JLabel();
+        lbedad = new javax.swing.JLabel();
+        lbgenero = new javax.swing.JLabel();
         are3 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         listaUsuarios = new javax.swing.JList<>();
@@ -191,9 +195,6 @@ private SyS sys;
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         bnentrar = new javax.swing.JButton();
-        lbnombre5 = new javax.swing.JLabel();
-        lbedad = new javax.swing.JLabel();
-        lbgenero = new javax.swing.JLabel();
         Fonde = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -317,6 +318,28 @@ private SyS sys;
         });
         getContentPane().add(txfbperfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 40, 450, 40));
 
+        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 106, 310, 30));
+
+        lbnombre5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        lbnombre5.setForeground(new java.awt.Color(153, 153, 153));
+        lbnombre5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbnombre5.setText("años");
+        getContentPane().add(lbnombre5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, 70, 25));
+
+        lbedad.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        lbedad.setForeground(new java.awt.Color(153, 153, 153));
+        lbedad.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbedad.setText("Edad");
+        getContentPane().add(lbedad, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 340, 40, 25));
+
+        lbgenero.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        lbgenero.setForeground(new java.awt.Color(153, 153, 153));
+        lbgenero.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbgenero.setText("Genero");
+        getContentPane().add(lbgenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, 100, 25));
+
         are3.setBackground(new java.awt.Color(0, 0, 0));
         are3.setOpaque(false);
 
@@ -339,7 +362,7 @@ private SyS sys;
             .addGroup(are3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(are3, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 140, 490, 570));
@@ -366,14 +389,14 @@ private SyS sys;
             .addGroup(areaLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         areaLayout.setVerticalGroup(
             areaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(areaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(area, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 920, 320));
@@ -389,25 +412,8 @@ private SyS sys;
         });
         getContentPane().add(bnentrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 110, 120, -1));
 
-        lbnombre5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
-        lbnombre5.setForeground(new java.awt.Color(153, 153, 153));
-        lbnombre5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbnombre5.setText("años");
-        getContentPane().add(lbnombre5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, 70, 25));
-
-        lbedad.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
-        lbedad.setForeground(new java.awt.Color(153, 153, 153));
-        lbedad.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbedad.setText("Edad");
-        getContentPane().add(lbedad, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 340, 40, 25));
-
-        lbgenero.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
-        lbgenero.setForeground(new java.awt.Color(153, 153, 153));
-        lbgenero.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbgenero.setText("Genero");
-        getContentPane().add(lbgenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, 100, 25));
-
         Fonde.setBackground(new java.awt.Color(0, 0, 0));
+        Fonde.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
         Fonde.setForeground(new java.awt.Color(255, 255, 255));
         Fonde.setOpaque(true);
         getContentPane().add(Fonde, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1490, 730));
@@ -416,13 +422,13 @@ private SyS sys;
     }// </editor-fold>//GEN-END:initComponents
 
     private void bnsiguiendoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnsiguiendoActionPerformed
+        jLabel1.setText("LISTA DE SEGUIDOS");
         mostrarSeguidos();
-        
-        
-        
+       
     }//GEN-LAST:event_bnsiguiendoActionPerformed
 
     private void bnseguidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnseguidoresActionPerformed
+    jLabel1.setText("LISTA DE SEGUIDORES");
         mostrarSeguidores();
     }//GEN-LAST:event_bnseguidoresActionPerformed
 
@@ -438,7 +444,7 @@ private SyS sys;
     private void txfbperfilKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfbperfilKeyTyped
         String palabraClave = txfbperfil.getText().trim(); // Obtener y limpiar espacios
         String estado ="";
-        
+        jLabel1.setText("");
         DefaultListModel<String> modelo = new DefaultListModel<>();
 
         if (palabraClave.isEmpty()) {
@@ -587,6 +593,7 @@ private SyS sys;
     private javax.swing.JButton bnsiguiendo;
     private javax.swing.JButton bnuser;
     private javax.swing.JLabel fondo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
