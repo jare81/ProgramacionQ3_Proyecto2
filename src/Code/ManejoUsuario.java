@@ -4,6 +4,8 @@
  */
 package Code;
 
+import Interfaz.Perfil;
+
 /**
  *
  * @author jaren
@@ -20,7 +22,7 @@ public class ManejoUsuario {
     private int indexHashtagsG;
     
     private String otroUser="";
-    
+    private Perfil perfilJFrame;
     
     
     public ManejoUsuario(int cantidad){
@@ -142,14 +144,13 @@ public class ManejoUsuario {
         return false;
     }
        
-     public boolean cerrarSesion(){
-            if (usuarioActual != null) {
-            usuarioActual = null; 
+        public boolean cerrarSesion() {
+        if (usuarioActual != null) {
+            usuarioActual = null;  // Limpiar el usuario actual
             return true;
-            }
-            return false;
         }
-        
+        return false;
+    }
      
     
         public boolean usuarioExiste(String username) {
@@ -191,43 +192,43 @@ public class ManejoUsuario {
         
         
         
-        public String mostrarNombre() {
-          if (usuarioActual != null) {
+    public String mostrarNombre() {
+        if (usuarioActual != null) {
             return usuarioActual.getNombre_user();
         }
-        return "Usuario no encontrado"; 
+            return "Usuario no encontrado"; 
     }
         
-        public String mostrarUser() {
-         if (usuarioActual != null) {
+    public String mostrarUser() {
+        if (usuarioActual != null) {
             return usuarioActual.getUsername();
         }
-        return "Usuario no encontrado";  
-        }
+            return "Usuario no encontrado";  
+    }
         
-     public char mostrarGenero() {
-         if (usuarioActual != null) {
+    public char mostrarGenero() {
+        if (usuarioActual != null) {
             return usuarioActual.getGenero();
         }
         return 0; 
     }
      
-     public int mostrarEdad(){
-         if(usuarioActual !=null){
-             return usuarioActual.getEdad();
-         }
+    public int mostrarEdad(){
+        if(usuarioActual !=null){
+            return usuarioActual.getEdad();
+        }
          return 0;
      }
      
-     public String mostrarFecha() {
-         if (usuarioActual != null) {
+    public String mostrarFecha() {
+        if (usuarioActual != null) {
             return usuarioActual.getFecha();
         }
         return "Sin Fecha"; 
     }
      
-      public boolean mostrarEstado() {
-         if (usuarioActual != null) {
+    public boolean mostrarEstado() {
+        if (usuarioActual != null) {
             return usuarioActual.isActivo();
         }
         return false; 
@@ -235,10 +236,10 @@ public class ManejoUsuario {
      
       
       
-   public void agregarTwitActual(String username, String contenido, String hora) {
+   public void agregarTwitActual(String username, String contenido, String hora, String fecha) {
        
        if (usuarioActual != null) {
-            Twits nuevoTwit = new Twits(usuarioActual.getUsername(), contenido, hora, usuarioActual);
+            Twits nuevoTwit = new Twits(usuarioActual.getUsername(), contenido, hora, fecha, usuarioActual);
             usuarioActual.agregarTwit(nuevoTwit);
         } else {
             System.out.println("No hay usuario logueado.");
@@ -359,6 +360,16 @@ public class ManejoUsuario {
     
     return usuariosActivos;
 }
+     
+     //para actualizar el numero de SYS de manera automoatica
+     public void setPerfilJFrame(Perfil perfilJFrame) {
+        this.perfilJFrame = perfilJFrame;
+    }
+
+    public Perfil getPerfilJFrame() {
+        return perfilJFrame;
+    }
+
      
     
 }

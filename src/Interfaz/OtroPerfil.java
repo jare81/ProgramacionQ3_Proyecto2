@@ -5,10 +5,10 @@
 package Interfaz;
 
 
+import Code.ManejoUsuario;
 import Code.Twits;
 import Code.Usuario;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,15 +20,19 @@ public class OtroPerfil extends javax.swing.JFrame {
      * Creates new form OtroPerfil
      */
   
-    Usuario usuario;
+    private Usuario usuario;
+    private ManejoUsuario user;
     //SyS sys = new SyS(100);
     
-    public OtroPerfil(Usuario usuario) {
-       initComponents();
+     
+    public OtroPerfil(Usuario usuario, ManejoUsuario user) {
+        initComponents();
         this.usuario=usuario;
-         
+        this.user=user;
+        
         Usuario usuarioActual = usuario.getUser();
-        Usuario usuarioPerfil = usuario;// perfil que se esta viendo
+        Usuario usuarioPerfil = usuario;// peril viendo
+    
          
             if (usuarioActual.equals(usuarioPerfil)) {
             bnSeguir.setEnabled(false);
@@ -37,45 +41,53 @@ public class OtroPerfil extends javax.swing.JFrame {
                 bnSeguir.setEnabled(true);
             }
            
-         //info en labels 
+        actualizarDatos();
          
-         lbfecha.setText(usuario.getFecha());
-         lbedad.setText(Integer.toString(usuario.getEdad()));
-         char gen = usuario.getGenero();
-         lbsiguiendo.setText(Integer.toString(usuario.getCantidadSeguidos()));
-         lbseguidores.setText(Integer.toString(usuario.getCantidadSeguidores()));
-         lbnombre1.setText(usuario.getNombre_user());
-         bnuser.setText(usuario.getUsername());
+         
+    }
+    
+    private void actualizarDatos(){
+         
+        Usuario usuarioActual = usuario.getUser();
+        Usuario usuarioPerfil = usuario;// peril viendo
+    
+        //info en labels
+        lbfecha.setText(usuario.getFecha());
+        lbedad.setText(Integer.toString(usuario.getEdad()));
+        char gen = usuario.getGenero();
+        lbsiguiendo.setText(Integer.toString(usuario.getCantidadSeguidos()));
+        lbseguidores.setText(Integer.toString(usuario.getCantidadSeguidores()));
+        lbnombre1.setText(usuario.getNombre_user());
+        bnuser.setText(usuario.getUsername());
          
          //mostrar gen
-         if(gen=='M'){
-             lbgenero.setText("Masculino");}
-         else if (gen=='F'){
-             lbgenero.setText("Femenino");
+        if(gen=='M'){
+            lbgenero.setText("Masculino");}
+        else if (gen=='F'){
+            lbgenero.setText("Femenino");
          }
          
          
-          String rutaImagen = "";
-         if (gen == 'M') {
-            rutaImagen = "/Images/maleazul128.png"; 
-        } else if (gen == 'F') {
-            rutaImagen = "/Images/femaleazul128.png"; 
-        }
+        String rutaImagen = "";
+            if (gen == 'M') {
+                 rutaImagen = "/Images/maleazul128.png"; 
+            } else if (gen == 'F') {
+                rutaImagen = "/Images/femaleazul128.png"; 
+            }
          
-            java.net.URL imgURL = getClass().getResource(rutaImagen);
-        if (imgURL != null) {
-            ImageIcon imagenIcon = new ImageIcon(imgURL);
-            jLabel2.setIcon(imagenIcon);
-        } else {
-            System.err.println("No se pudo encontrar la imagen en la ruta: " + rutaImagen);
-        }
+        java.net.URL imgURL = getClass().getResource(rutaImagen);
+            if (imgURL != null) {
+                ImageIcon imagenIcon = new ImageIcon(imgURL);
+                jLabel2.setIcon(imagenIcon);
+            } else {
+                System.out.println("No se pudo encontrar la imagen en la ruta: " + rutaImagen);
+            }
         
         
         jTextArea1.setText("");
-        
          Twits[] twits = usuario.getTwits();
 
-        // Recorremos el arreglo en orden inverso
+        //arreglo en orden inverso
         for (int i = twits.length - 1; i >= 0; i--) {
             if (twits[i] != null) {
                 jTextArea1.append(twits[i].toString() + "\n\n");
@@ -85,16 +97,12 @@ public class OtroPerfil extends javax.swing.JFrame {
         revalidate();
         repaint();
         
-         if (usuarioActual.getSyS().esSeguido(usuarioPerfil)){
-           
-    bnSeguir.setText("Dejar de Seguir");
-    } else {
-    
+        if (usuarioActual.getSyS().esSeguido(usuarioPerfil)){   
+        bnSeguir.setText("Dejar de Seguir");
+        } else {
+        bnSeguir.setText("Seguir");
 
-   
-    bnSeguir.setText("Seguir");
-        
-    }
+        } 
     }
 
     /**
@@ -109,7 +117,7 @@ public class OtroPerfil extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
         lbsiguiendo = new javax.swing.JLabel();
-        bnseguidos = new javax.swing.JButton();
+        bnsiguiendo = new javax.swing.JButton();
         bnseguidores = new javax.swing.JButton();
         lbseguidores = new javax.swing.JLabel();
         bnuser = new javax.swing.JButton();
@@ -142,22 +150,22 @@ public class OtroPerfil extends javax.swing.JFrame {
         lbsiguiendo.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
         lbsiguiendo.setForeground(new java.awt.Color(255, 255, 255));
         lbsiguiendo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbsiguiendo.setText("50");
+        lbsiguiendo.setText("0");
         getContentPane().add(lbsiguiendo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 360, 50, 30));
 
-        bnseguidos.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
-        bnseguidos.setText("Siguiendo");
-        bnseguidos.setBorderPainted(false);
-        bnseguidos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        bnseguidos.addActionListener(new java.awt.event.ActionListener() {
+        bnsiguiendo.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        bnsiguiendo.setText("Siguiendo");
+        bnsiguiendo.setBorderPainted(false);
+        bnsiguiendo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        bnsiguiendo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bnseguidosActionPerformed(evt);
+                bnsiguiendoActionPerformed(evt);
             }
         });
-        getContentPane().add(bnseguidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, 120, 30));
+        getContentPane().add(bnsiguiendo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, 120, 30));
 
         bnseguidores.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
-        bnseguidores.setText("Seguidos");
+        bnseguidores.setText("Seguidores");
         bnseguidores.setBorderPainted(false);
         bnseguidores.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         bnseguidores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -166,13 +174,13 @@ public class OtroPerfil extends javax.swing.JFrame {
                 bnseguidoresActionPerformed(evt);
             }
         });
-        getContentPane().add(bnseguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 360, 120, 30));
+        getContentPane().add(bnseguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 360, 140, 30));
 
         lbseguidores.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
         lbseguidores.setForeground(new java.awt.Color(255, 255, 255));
         lbseguidores.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbseguidores.setText("50");
-        getContentPane().add(lbseguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 360, 50, 30));
+        lbseguidores.setText("0");
+        getContentPane().add(lbseguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 360, 50, 30));
 
         bnuser.setBackground(new java.awt.Color(0, 153, 255));
         bnuser.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
@@ -198,13 +206,12 @@ public class OtroPerfil extends javax.swing.JFrame {
         getContentPane().add(lbfecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 90, 25));
 
         bnSeguir.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
-        bnSeguir.setText("Seguir");
         bnSeguir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnSeguirActionPerformed(evt);
             }
         });
-        getContentPane().add(bnSeguir, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 260, 130, 30));
+        getContentPane().add(bnSeguir, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 260, 170, 30));
 
         bnback.setBackground(new java.awt.Color(255, 255, 255));
         bnback.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
@@ -284,9 +291,9 @@ public class OtroPerfil extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bnseguidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnseguidosActionPerformed
+    private void bnsiguiendoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnsiguiendoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bnseguidosActionPerformed
+    }//GEN-LAST:event_bnsiguiendoActionPerformed
 
     private void bnseguidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnseguidoresActionPerformed
 
@@ -297,25 +304,30 @@ public class OtroPerfil extends javax.swing.JFrame {
     }//GEN-LAST:event_bnuserActionPerformed
 
     private void bnSeguirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnSeguirActionPerformed
-    Usuario usuarioActual = usuario.getUser();
+        Usuario usuarioActual = usuario.getUser();
+        Usuario usuarioPerfil = usuario;// peril viendo
     
-    
-    Usuario usuarioPerfil = usuario;
+        if (usuarioActual.getSyS().esSeguido(usuarioPerfil)) {
 
-    if (usuarioActual.getSyS().esSeguido(usuarioPerfil)) {
+          usuarioActual.getSyS().eliminarSeguido(usuarioPerfil);
+          usuarioPerfil.getSyS().eliminarSeguidor(usuarioActual);
+          
+          bnSeguir.setText("Seguir");
+          
+         } else {
+        usuarioActual.getSyS().agregarSeguido(usuarioPerfil);
+        usuarioPerfil.getSyS().agregarSeguidor(usuarioActual);
 
-      usuarioActual.getSyS().eliminarSeguido(usuarioPerfil);
-      usuarioPerfil.getSyS().eliminarSeguidor(usuarioActual);
-      bnSeguir.setText("Seguir");
-     } else {
-    usuarioActual.getSyS().agregarSeguido(usuarioPerfil);
-    usuarioPerfil.getSyS().agregarSeguidor(usuarioActual);
+        bnSeguir.setText("Dejar de seguir");
+        }
+        
+        actualizarDatos();
+        user.getPerfilJFrame().actualizarDatos();
 
-    bnSeguir.setText("Dejar de seguir");
-    }   
-   
-    revalidate();
-    repaint();
+        revalidate();
+        repaint();
+        
+        
 
     }//GEN-LAST:event_bnSeguirActionPerformed
 
@@ -364,7 +376,7 @@ public class OtroPerfil extends javax.swing.JFrame {
     private javax.swing.JButton bnSeguir;
     private javax.swing.JButton bnback;
     private javax.swing.JButton bnseguidores;
-    private javax.swing.JButton bnseguidos;
+    private javax.swing.JButton bnsiguiendo;
     private javax.swing.JButton bnuser;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel jLabel1;

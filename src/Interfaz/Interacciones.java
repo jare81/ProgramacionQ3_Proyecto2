@@ -15,30 +15,28 @@ import Code.Usuario;
 public class Interacciones extends javax.swing.JPanel {
 
     private ManejoUsuario user; 
+   
     
     public Interacciones(ManejoUsuario user) {
         initComponents();
         this.user=user;
+        
         mostrarMenciones();
         
     }
     
+    
+    
      public void mostrarMenciones() {
-     if (user != null) { 
+     /*if (user != null) { 
          //user logg
             Usuario usuarioActual = user.obtenerUsuarioActual(); 
 
             Twits[] mencionesGlobales = user.obtenerMencionesG();
-            
-            // Iterar sobre las menciones globales
-            /*for (Twits mencion : mencionesGlobales) {
-                if (mencion.getContenido().contains("@" + usuarioActual.getUsername())) {
-                      men.append(mencion.toString() + "\n\n");// O actualizar el JTextArea con la mención
-                }
-            }*/
-            
+            Usuario creador = twit.getUsuario();
+          
             for (int i = mencionesGlobales.length-1; i >=0; i--) {
-             if (mencionesGlobales[i].getContenido().contains("@" + usuarioActual.getUsername())) {
+             if (mencionesGlobales[i].getContenido().contains("@" + usuarioActual.getUsername()) && creador.isActivo() ) {
                       men.append(mencionesGlobales[i].toString() + "\n\n");// O actualizar el JTextArea con la mención
                 }
          }
@@ -49,7 +47,30 @@ public class Interacciones extends javax.swing.JPanel {
         }
 
         revalidate();
-        repaint();
+        repaint();*/
+     
+            if (user != null) { 
+                Usuario usuarioActual = user.obtenerUsuarioActual(); 
+                Twits[] mencionesGlobales = user.obtenerMencionesG();
+
+                for (int i = mencionesGlobales.length - 1; i >= 0; i--) {
+                    Twits mencion = mencionesGlobales[i];
+
+                    Usuario creador = mencion.getUsuario();
+                    
+                    if (mencion.getContenido().contains("@" + usuarioActual.getUsername()) && creador.isActivo()) {
+                        men.append(mencion.toString() + "\n\n");
+                    }
+                }
+            } else {
+                System.out.println("El usuario es null");
+            }
+
+            revalidate();
+            repaint();
+        
+     
+     
     }
 
      

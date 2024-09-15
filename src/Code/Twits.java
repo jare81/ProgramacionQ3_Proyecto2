@@ -12,15 +12,17 @@ public class Twits {
     private String username;
     private String contenido;
     private String hora;
+    private String fecha;
     private Twits[] twits;
     private int numTwits;
     private Usuario usuario; 
     
     int maxi=1000;
     
-    public Twits(String username, String contenido, String hora, Usuario usuario){
+    public Twits(String username, String contenido, String hora, String fecha, Usuario usuario){
         this.contenido=contenido;
         this.hora=hora;
+        this.fecha=fecha;
         this.username=username;
         
          this.twits= new Twits[maxi];
@@ -40,6 +42,9 @@ public class Twits {
         return contenido;
     }
     
+    public String getFecha(){
+        return fecha;
+    }
     public Usuario getUsuario() {
         return usuario;  //  que creó el twit
     }
@@ -49,7 +54,7 @@ public class Twits {
     }
     
      public String toString2() {
-        return "\n     @ " + username + "\n           " + "publicó " + hora + "\n           " + contenido + "\n\n_____________________________";
+        return "\n     @ " + username + "\n           " + "publicó " + hora + "\n           " + contenido + "\n\n_________________________________";
     }
      
      public String toString3() {

@@ -7,6 +7,7 @@ import Code.Twits;
 import Code.Usuario;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -16,14 +17,17 @@ public class Perfil extends javax.swing.JFrame {
 private ManejoUsuario user;
 private Usuario usuario;
 private SyS sys;
+    private DefaultListModel<String> modeloLista;
     
     public Perfil(ManejoUsuario user) {
         this.user=user;
         initComponents();
         usuario = user.obtenerUsuarioActual();
         sys = usuario.getSyS();
+     
         
         actualizarUsuario();
+        actualizarDatos();
          mostrarTwit();
          
        // aaa();
@@ -39,7 +43,32 @@ private SyS sys;
                 });
                 bnentrar.setEnabled(false);
         
+         user.setPerfilJFrame(this);
+    }
+    
+    
+     private void mostrarSeguidos() {
+        DefaultListModel<String> modelo = new DefaultListModel<>(); 
+         
+        modelo.clear();
+        Usuario[] seguidos = usuario.obtenerSeguidos();
+        for (Usuario seguido : seguidos) {
+            modelo.addElement(seguido.getNombre_user() + " - @" + seguido.getUsername());
+        }
         
+        listaUsuarios.setModel(modelo);
+    }
+
+    private void mostrarSeguidores() {
+        DefaultListModel<String> modelo = new DefaultListModel<>(); 
+
+        modelo.clear();
+        Usuario[] seguidores = usuario.obtenerSeguidores();
+        for (Usuario seguidor : seguidores) {
+            modelo.addElement(seguidor.getNombre_user() + " - @" + seguidor.getUsername());
+        }
+        
+        listaUsuarios.setModel(modelo);
     }
     
     //NO USADOO PERO AQUI ESTA POR SI ACASO
@@ -67,6 +96,12 @@ private SyS sys;
         } else {
             System.err.println("El usuario actual es null.");
         }
+    }
+    
+    //pasar informacion jfframe
+     public void actualizarDatos() {
+        lbsiguiendo.setText(Integer.toString(usuario.getCantidadSeguidos()));
+        lbseguidores.setText(Integer.toString(usuario.getCantidadSeguidores()));
     }
 
     
@@ -137,7 +172,7 @@ private SyS sys;
         jLabel2 = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
         lbsiguiendo = new javax.swing.JLabel();
-        bnseguidos = new javax.swing.JButton();
+        bnsiguiendo = new javax.swing.JButton();
         bnseguidores = new javax.swing.JButton();
         lbseguidores = new javax.swing.JLabel();
         lbnombre = new javax.swing.JLabel();
@@ -159,8 +194,6 @@ private SyS sys;
         lbnombre5 = new javax.swing.JLabel();
         lbedad = new javax.swing.JLabel();
         lbgenero = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         Fonde = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -175,40 +208,39 @@ private SyS sys;
         lbsiguiendo.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
         lbsiguiendo.setForeground(new java.awt.Color(255, 255, 255));
         lbsiguiendo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbsiguiendo.setText("50");
+        lbsiguiendo.setText("0");
         getContentPane().add(lbsiguiendo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, 50, 30));
 
-        bnseguidos.setBackground(new java.awt.Color(0, 153, 255));
-        bnseguidos.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
-        bnseguidos.setForeground(new java.awt.Color(0, 0, 0));
-        bnseguidos.setText("Siguiendo");
-        bnseguidos.setBorderPainted(false);
-        bnseguidos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        bnseguidos.addActionListener(new java.awt.event.ActionListener() {
+        bnsiguiendo.setBackground(new java.awt.Color(0, 153, 255));
+        bnsiguiendo.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        bnsiguiendo.setForeground(new java.awt.Color(0, 0, 0));
+        bnsiguiendo.setText("Siguiendo");
+        bnsiguiendo.setBorderPainted(false);
+        bnsiguiendo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        bnsiguiendo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bnseguidosActionPerformed(evt);
+                bnsiguiendoActionPerformed(evt);
             }
         });
-        getContentPane().add(bnseguidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 310, 120, 30));
+        getContentPane().add(bnsiguiendo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 310, 140, 30));
 
         bnseguidores.setBackground(new java.awt.Color(0, 153, 255));
         bnseguidores.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
         bnseguidores.setForeground(new java.awt.Color(0, 0, 0));
-        bnseguidores.setText("Seguidos");
+        bnseguidores.setText("Seguidores");
         bnseguidores.setBorderPainted(false);
         bnseguidores.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        bnseguidores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         bnseguidores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnseguidoresActionPerformed(evt);
             }
         });
-        getContentPane().add(bnseguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 310, 110, 30));
+        getContentPane().add(bnseguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 310, 140, 30));
 
         lbseguidores.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
         lbseguidores.setForeground(new java.awt.Color(255, 255, 255));
         lbseguidores.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbseguidores.setText("50");
+        lbseguidores.setText("0");
         getContentPane().add(lbseguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 310, 50, 30));
 
         lbnombre.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
@@ -355,7 +387,7 @@ private SyS sys;
                 bnentrarActionPerformed(evt);
             }
         });
-        getContentPane().add(bnentrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 100, 120, -1));
+        getContentPane().add(bnentrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 110, 120, -1));
 
         lbnombre5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
         lbnombre5.setForeground(new java.awt.Color(153, 153, 153));
@@ -375,18 +407,6 @@ private SyS sys;
         lbgenero.setText("Genero");
         getContentPane().add(lbgenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, 100, 25));
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 255));
-        jButton1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("No Seguir");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1326, 100, 120, -1));
-
-        jButton2.setBackground(new java.awt.Color(0, 153, 255));
-        jButton2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("Seguir ");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 100, 120, -1));
-
         Fonde.setBackground(new java.awt.Color(0, 0, 0));
         Fonde.setForeground(new java.awt.Color(255, 255, 255));
         Fonde.setOpaque(true);
@@ -395,15 +415,15 @@ private SyS sys;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bnseguidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnseguidosActionPerformed
+    private void bnsiguiendoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnsiguiendoActionPerformed
+        mostrarSeguidos();
         
         
         
-        
-    }//GEN-LAST:event_bnseguidosActionPerformed
+    }//GEN-LAST:event_bnsiguiendoActionPerformed
 
     private void bnseguidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnseguidoresActionPerformed
-        
+        mostrarSeguidores();
     }//GEN-LAST:event_bnseguidoresActionPerformed
 
     private void bnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnbackActionPerformed
@@ -417,21 +437,38 @@ private SyS sys;
 
     private void txfbperfilKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfbperfilKeyTyped
         String palabraClave = txfbperfil.getText().trim(); // Obtener y limpiar espacios
-
+        String estado ="";
+        
         DefaultListModel<String> modelo = new DefaultListModel<>();
 
         if (palabraClave.isEmpty()) {
             Usuario[] todosLosUsuarios = user.obtenerTodosLosUsuarios();
             for (Usuario usuario : todosLosUsuarios) {
                 if (usuario != null) {
-                    modelo.addElement(usuario.getNombre_user() + " - @" + usuario.getUsername());
+                     
+                    if (usuario.equals(usuario.getUser())) {
+                         estado = "   [Tu]";
+                    }else if (usuario.getUser().getSyS().esSeguido(usuario)) {
+                        estado = "    [Siguiendo]";
+                    } else {
+                        estado = "    [No seguido]";
+                    }
+                    modelo.addElement(usuario.getNombre_user() + " - @" + usuario.getUsername() + " " + estado);
                 }
             }
         } else {
             Usuario[] resultados = user.buscarUsuarios(palabraClave);
             for (Usuario usuario : resultados) {
                 if (usuario != null) {
-                    modelo.addElement(usuario.getNombre_user() + " - @" + usuario.getUsername() + "\n");
+                    
+                     if (usuario.equals(usuario.getUser())) {
+                         estado = "   [Tu]";
+                    }else if (usuario.getUser().getSyS().esSeguido(usuario)) {
+                        estado = "   [Siguiendo]";
+                    } else {
+                        estado = "   [No seguido]";
+                    }
+                    modelo.addElement(usuario.getNombre_user() + " - @" + usuario.getUsername() + " " + estado);
                 }
             }
         }
@@ -450,19 +487,27 @@ private SyS sys;
 
     private void bnactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnactivarActionPerformed
         
-        if(user.mostrarEstado()==true){
-            bnactivar.setText("Activar");
-            
-            user.cambiarEstadoUsuario(user.mostrarUser(), false);
-            JOptionPane.showMessageDialog(null, "Su cuenta está inactiva ahora. No podran ver su informacion");
-            
-        }else if(user.mostrarEstado()==false){
-            bnactivar.setText("Desactivar");
-            
-            user.cambiarEstadoUsuario(user.mostrarUser(), true);
-            JOptionPane.showMessageDialog(null, "Su cuenta está activa ahora. Los demás pueden ver su informacion");
+         if (user.mostrarEstado() == true) {
+            int respuesta = JOptionPane.showConfirmDialog(null, 
+                "¿Está seguro de que desea desactivar su cuenta? No podrán ver su información.", 
+                "Confirmar desactivación", 
+                JOptionPane.YES_NO_OPTION);
 
-         
+            if (respuesta == JOptionPane.YES_OPTION) {
+                bnactivar.setText("Activar");
+                user.cambiarEstadoUsuario(user.mostrarUser(), false);
+                user.cerrarSesion();
+                this.dispose(); 
+                new Iniciar_Sesion(user).setVisible(true); 
+                
+                //JOptionPane.showMessageDialog(null, "Su cuenta está inactiva ahora. No podrán ver su información.");
+                
+            }
+        
+        } else if (user.mostrarEstado() == false) {
+            bnactivar.setText("Desactivar");
+            user.cambiarEstadoUsuario(user.mostrarUser(), true);
+            JOptionPane.showMessageDialog(null, "Su cuenta está activa ahora. Los demás pueden ver su información.");
         }
     }//GEN-LAST:event_bnactivarActionPerformed
 
@@ -477,19 +522,19 @@ private SyS sys;
     private void bnentrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnentrarActionPerformed
         // algo seleccionado
         String palabraClave = txfbperfil.getText().trim();
-    Usuario[] resultados =  user.buscarUsuarios(palabraClave);
-    
-    int seleccionado = listaUsuarios.getSelectedIndex();
-    
-    if (seleccionado != -1 && resultados != null && seleccionado < resultados.length) {
-        Usuario usuarioSeleccionado = resultados[seleccionado];  
-        
-        OtroPerfil otroPerfil = new OtroPerfil(usuarioSeleccionado); 
-        otroPerfil.setVisible(true);
-    } else {
-        
-        JOptionPane.showMessageDialog(this, "No se econtro ningun usuario '" + txfbperfil.getText().trim() + "'" );
-    }
+        Usuario[] resultados =  user.buscarUsuarios(palabraClave);
+
+        int seleccionado = listaUsuarios.getSelectedIndex();
+
+        if (seleccionado != -1 && resultados != null && seleccionado < resultados.length) {
+            Usuario usuarioSeleccionado = resultados[seleccionado];  
+
+            OtroPerfil otroPerfil = new OtroPerfil(usuarioSeleccionado, user); 
+            otroPerfil.setVisible(true);
+        } else {
+
+            JOptionPane.showMessageDialog(this, "No se econtro ningun usuario '" + txfbperfil.getText().trim() + "'" );
+        }
     
     
         
@@ -539,11 +584,9 @@ private SyS sys;
     private javax.swing.JButton bnback;
     private javax.swing.JButton bnentrar;
     private javax.swing.JButton bnseguidores;
-    private javax.swing.JButton bnseguidos;
+    private javax.swing.JButton bnsiguiendo;
     private javax.swing.JButton bnuser;
     private javax.swing.JLabel fondo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;

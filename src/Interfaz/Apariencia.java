@@ -456,9 +456,24 @@ public class Apariencia extends javax.swing.JFrame {
     }//GEN-LAST:event_bnuserActionPerformed
 
     private void bncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bncerrarActionPerformed
-        user.cerrarSesion();
+       /* user.cerrarSesion();
         this.dispose();
-        new Iniciar_Sesion(user).setVisible(true);
+        new Iniciar_Sesion(user).setVisible(true);*/
+       
+        int respuesta = JOptionPane.showConfirmDialog(null, 
+            "¿Está seguro de que desea cerrar la sesión?", 
+            "Confirmar cierre de sesión", 
+            JOptionPane.YES_NO_OPTION);
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            if (user.cerrarSesion()) { 
+                JOptionPane.showMessageDialog(null, "Nos vemos...");
+                this.dispose(); 
+                new Iniciar_Sesion(user).setVisible(true); 
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay ninguna sesión activa.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_bncerrarActionPerformed
 
     private void bninteracActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bninteracActionPerformed
@@ -500,12 +515,12 @@ public class Apariencia extends javax.swing.JFrame {
         LocalDate today = LocalDate.now();
         LocalTime noww = LocalTime.now(); 
         
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm ");
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm");
         String hora = noww.format(formato);
         
         if (!areapost.getText().isEmpty()) {
             String contenido = areapost.getText();
-            user.agregarTwitActual(user.mostrarNombre(), contenido, (hora + " / " + today));
+            user.agregarTwitActual(user.mostrarNombre(), contenido, hora, (" / " + today));
             
             
            // timeLinePanel2.m

@@ -7,6 +7,9 @@ package Interfaz;
 import Code.ManejoUsuario;
 import Code.Twits;
 import Code.Usuario;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JSeparator;
 
 /**
@@ -50,10 +53,12 @@ public class TimeLine extends javax.swing.JPanel {
         revalidate();
         repaint();----------*/
         
-        Usuario usuarioActual = user.obtenerUsuarioActual();
+       /* Usuario usuarioActual = user.obtenerUsuarioActual();
         StringBuilder twitsAcumulados = new StringBuilder();
 
         Twits[] twitsActual = usuarioActual.getTwits();
+        
+         ordenarTwitsHora(twitsActual);
 
         for (int i = twitsActual.length - 1; i >= 0; i--) {
             if (twitsActual[i] != null) {
@@ -68,14 +73,73 @@ public class TimeLine extends javax.swing.JPanel {
                 if (seguido.isActivo()) {
                     Twits[] twitsSeguido = seguido.getTwits();
                     
+                     ordenarTwitsHora(twitsSeguido);
+                    
                     for (int i = twitsSeguido.length - 1; i >= 0; i--) { 
                         if (twitsSeguido[i] != null) {
                             twitsAcumulados.append(twitsSeguido[i].toString3()).append("\n\n");
                         }
                     }
                 }
-            }
+            }*/
 
+        Usuario usuarioActual = user.obtenerUsuarioActual();
+        Twits[] twitsActual = usuarioActual.getTwits();
+
+        Usuario[] usuariosSeguidos = usuarioActual.obtenerSeguidos();
+        //tamano para arreglo generla
+        int totalTwits = twitsActual.length;
+
+        for (Usuario seguido : usuariosSeguidos) {
+            if (seguido.isActivo()) {
+                totalTwits += seguido.getTwits().length;
+            }
+        }
+
+        //arreglop general
+        Twits[] todosLosTwits = new Twits[totalTwits];
+        int indice = 0;
+
+        //twits user actual
+        boolean[] esDelUsuarioActual = new boolean[totalTwits]; // Indicar si el twit es del usuario actual
+        for (Twits twit : twitsActual) {
+            if (twit != null) {
+                todosLosTwits[indice] = twit;
+                esDelUsuarioActual[indice] = true; // Este twit es del usuario actual
+                indice++;
+            }
+        }
+
+        //twits users seguidos
+        for (Usuario seguido : usuariosSeguidos) {
+            if (seguido.isActivo()) {
+                Twits[] twitsSeguido = seguido.getTwits();
+                for (Twits twit : twitsSeguido) {
+                    if (twit != null) {
+                        todosLosTwits[indice] = twit;
+                        esDelUsuarioActual[indice] = false; // Este twit es de un usuario seguido
+                        indice++;
+                    }
+                }
+            }
+        }
+
+        //cronologia
+        ordenarTwitsHora(todosLosTwits);
+
+        // mostrar mas nuevo mas viejo
+        StringBuilder twitsAcumulados = new StringBuilder();
+        for (int i = todosLosTwits.length - 1; i >= 0; i--) {
+            if (todosLosTwits[i] != null) {
+                if (esDelUsuarioActual[i]) {
+                // Si el twit es del usuario actual, usar toString()
+                    twitsAcumulados.append(todosLosTwits[i].toString()).append("\n\n");
+                } else{
+                    // Si el twit es de un usuario seguido, usar toString3()
+                    twitsAcumulados.append(todosLosTwits[i].toString3()).append("\n\n");
+                }
+            }
+        }
         area.setText(twitsAcumulados.toString());
 
         revalidate();
@@ -83,6 +147,29 @@ public class TimeLine extends javax.swing.JPanel {
 
         
         
+        
+    }
+    
+    public void ordenarTwitsHora(Twits[] twits){
+        SimpleDateFormat  sdf = new SimpleDateFormat("HH:mm");
+        
+        for (int i = 0; i < twits.length-1; i++) {
+            for (int j = 0; j < twits.length-1- i; j++) {
+                if(twits[j]!=null && twits [j+1] !=null)
+                     try {
+                    Date hora1 = sdf.parse(twits[j].getHora());
+                    Date hora2 = sdf.parse(twits[j + 1].getHora());
+
+                        if (hora1.after(hora2)) {
+                             Twits temp = twits[j];
+                             twits[j] = twits[j + 1];
+                             twits[j + 1] = temp;
+                         }
+                }   catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         
     }
     

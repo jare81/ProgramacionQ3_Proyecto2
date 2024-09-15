@@ -71,7 +71,7 @@ public class SyS {
     }
     
     
-    public Usuario[] obtenerSeguidores(){
+   /* public Usuario[] obtenerSeguidores(){
         Usuario[] seguidoresAct = new Usuario[indexSeguidores];
         System.arraycopy(seguidores, 0, seguidoresAct, 0, indexSeguidores);
         return seguidoresAct;
@@ -81,6 +81,30 @@ public class SyS {
         Usuario[] seguidosAct = new Usuario[indexSeguidos];
         System.arraycopy(seguidos, 0, seguidosAct, 0, indexSeguidos);
         return seguidosAct;
+    }*/
+    
+    public Usuario[] obtenerSeguidoresA() {
+        int contador = cantidadSeguidores();
+        Usuario[] seguidoresActivos = new Usuario[contador];
+        int index = 0;
+        for (int i = 0; i < indexSeguidores; i++) {
+            if (seguidores[i] != null && seguidores[i].isActivo()) {
+                seguidoresActivos[index++] = seguidores[i];
+            }
+        }
+        return seguidoresActivos;
+    }
+
+    public Usuario[] obtenerSeguidosA() {
+        int contador = cantidadSeguidos();
+        Usuario[] seguidosActivos = new Usuario[contador];
+        int index = 0;
+        for (int i = 0; i < indexSeguidos; i++) {
+            if (seguidos[i] != null && seguidos[i].isActivo()) {
+                seguidosActivos[index++] = seguidos[i];
+            }
+        }
+        return seguidosActivos;
     }
     
     public boolean esSeguidor(Usuario usuario){
@@ -99,12 +123,24 @@ public class SyS {
         }return false;
     }
     
-     public int cantidadSeguidores() {
-        return indexSeguidores; 
+    public int cantidadSeguidores() {
+        int cuantos = 0;
+        for (int i = 0; i < indexSeguidores; i++) {
+            if (seguidores[i] != null && seguidores[i].isActivo()) {
+                cuantos++;
+            }
+        }
+        return cuantos;
     }
     
     public int cantidadSeguidos() {
-        return indexSeguidos;
+        int cuantos = 0;
+        for (int i = 0; i < indexSeguidos; i++) {
+            if (seguidos[i] != null && seguidos[i].isActivo()) {
+                cuantos++; 
+            }
+        }
+        return cuantos;
     }
     
     

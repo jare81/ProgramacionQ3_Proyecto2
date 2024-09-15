@@ -12,9 +12,7 @@ import javax.swing.JOptionPane;
 public class Iniciar_Sesion extends javax.swing.JFrame {
  private ManejoUsuario user; 
  
- public String who="";
-
-   
+ 
     public Iniciar_Sesion(ManejoUsuario user) {
        this.user=user;
         initComponents();
@@ -158,8 +156,9 @@ public class Iniciar_Sesion extends javax.swing.JFrame {
         if (!username.isEmpty() && !password.isEmpty()) {
             if (user.validarCredenciales(username, password)) {
                 
+                user.cambiarEstadoUsuario(user.mostrarUser(), true);
                 JOptionPane.showMessageDialog(null, "Bienvenido :)");
-                who=username;
+                
                 Perfil perfil = new Perfil(user);
                 this.setVisible(false);
                 new Apariencia(user).setVisible(true);

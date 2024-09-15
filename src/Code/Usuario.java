@@ -115,10 +115,11 @@ public class Usuario {
         }
 
         String nombreMencionado = contenido.substring(inicio, fin);
+        
 
         // existe el user menciojado?
         Usuario usuarioMencionado = user.obtenerUsuario(nombreMencionado);
-        if (usuarioMencionado != null) {
+        if (usuarioMencionado != null ) {
            // usuarioMencionado.agregarMencion(twit);
             user.agregarMencionG(twit);
             if (contadorTwits < twits.length) {
@@ -175,11 +176,11 @@ public class Usuario {
     }*/
     
      public Usuario[] obtenerSeguidos() {
-        return sys.obtenerSeguidos();
+        return sys.obtenerSeguidosA();
     }
 
     public Usuario[] obtenerSeguidores() {
-        return sys.obtenerSeguidores();
+        return sys.obtenerSeguidoresA();
     }
     
     public int getCantidadSeguidores() {
