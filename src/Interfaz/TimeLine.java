@@ -101,11 +101,11 @@ public class TimeLine extends javax.swing.JPanel {
         int indice = 0;
 
         //twits user actual
-        boolean[] esDelUsuarioActual = new boolean[totalTwits]; // Indicar si el twit es del usuario actual
+        boolean[] esDelUsuarioActual = new boolean[totalTwits]; 
         for (Twits twit : twitsActual) {
             if (twit != null) {
                 todosLosTwits[indice] = twit;
-                esDelUsuarioActual[indice] = true; // Este twit es del usuario actual
+                esDelUsuarioActual[indice] = true; 
                 indice++;
             }
         }
@@ -117,7 +117,7 @@ public class TimeLine extends javax.swing.JPanel {
                 for (Twits twit : twitsSeguido) {
                     if (twit != null) {
                         todosLosTwits[indice] = twit;
-                        esDelUsuarioActual[indice] = false; // Este twit es de un usuario seguido
+                        esDelUsuarioActual[indice] = false; 
                         indice++;
                     }
                 }
