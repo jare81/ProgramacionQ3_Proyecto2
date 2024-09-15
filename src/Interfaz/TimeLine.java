@@ -132,10 +132,8 @@ public class TimeLine extends javax.swing.JPanel {
         for (int i = todosLosTwits.length - 1; i >= 0; i--) {
             if (todosLosTwits[i] != null) {
                 if (esDelUsuarioActual[i]) {
-                // Si el twit es del usuario actual, usar toString()
                     twitsAcumulados.append(todosLosTwits[i].toString()).append("\n\n");
                 } else{
-                    // Si el twit es de un usuario seguido, usar toString3()
                     twitsAcumulados.append(todosLosTwits[i].toString3()).append("\n\n");
                 }
             }

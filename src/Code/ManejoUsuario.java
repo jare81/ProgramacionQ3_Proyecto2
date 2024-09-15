@@ -124,7 +124,6 @@ public class ManejoUsuario {
             usuarios[contadorUsers] = nuevoUsuario;
             contadorUsers++;
             
-            // Si no hay nadior conectado hacer que el nuevo usuario sea el usuario actual
                 usuarioActual = nuevoUsuario;
                 return true;
             
