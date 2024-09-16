@@ -38,27 +38,16 @@ public class ManejoUsuario {
      this.indexHashtagsG = 0;
       
     }
-    
-   /* private Usuario buscar(String username) {
-        for (Usuario user : usuarios) {
-            if (user != null && user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        return null;
-    }*/
-    
+   
     
     public Usuario[] buscarUsuarios(String palabraClave) {
         Usuario[] resultados = new Usuario[contadorUsers];
         int contadorResultados = 0;
 
-  
         for (int i = 0; i < contadorUsers; i++) {
             if (usuarios[i] != null 
-                && usuarios[i].isActivo() // Solo incluir cuentas activas
-                && (usuarios[i].getNombre_user().contains(palabraClave) 
-                || usuarios[i].getUsername().contains(palabraClave))) {
+                && usuarios[i].isActivo()==true // solo cuentas activas
+                && usuarios[i].getUsername().contains(palabraClave)) {
                 resultados[contadorResultados] = usuarios[i];
                 contadorResultados++;
             }
@@ -81,12 +70,12 @@ public class ManejoUsuario {
         return null;
     }
     
-    public Usuario[] obtenerUsuarios() {
+  /*  public Usuario[] obtenerUsuarios() {
         Usuario[] usuariosActuales = new Usuario[contadorUsers];
         System.arraycopy(usuarios, 0, usuariosActuales, 0, contadorUsers);
         
         return usuariosActuales;
-    }
+    }*/
     
     
      public boolean cambiarEstadoUsuario(String username, boolean nuevoEstado) {
@@ -107,29 +96,18 @@ public class ManejoUsuario {
     return usuarioActual;
 }
      
-    
-   /*  public void registro(Usuario datos){
-        if (buscar(datos.getUsername()) == null){ 
-           usuarios[contadorUsers]=datos;
-           contadorUsers++;
-       }else{
-           System.out.println("No hay mas espacios");
-       }
-       
-   }*/
+  
      public  boolean agregarUser (String nombre_user, char genero, String username, String contrasena, String fecha, int edad, boolean estado){
-         
-            if (contadorUsers < usuarios.length) {
+        if (contadorUsers < usuarios.length) {
             Usuario nuevoUsuario = new Usuario(nombre_user, genero, username, contrasena, fecha, edad, estado, this);
             usuarios[contadorUsers] = nuevoUsuario;
             contadorUsers++;
-            
-                usuarioActual = nuevoUsuario;
-                return true;
-            
-            } else {
-        System.out.println("No se puede agregar más usuarios.");
-        return false;
+
+            usuarioActual = nuevoUsuario;
+            return true;
+        } else {
+            System.out.println("No se puede agregar más usuarios.");
+            return false;
         }
         
      }
@@ -145,13 +123,12 @@ public class ManejoUsuario {
        
         public boolean cerrarSesion() {
         if (usuarioActual != null) {
-            usuarioActual = null;  // Limpiar el usuario actual
+            usuarioActual = null;
             return true;
         }
         return false;
     }
      
-    
         public boolean usuarioExiste(String username) {
         for (int i = 0; i < contadorUsers; i++) {
             if (usuarios[i] != null && usuarios[i].getUsername().equals(username)) {
@@ -161,36 +138,7 @@ public class ManejoUsuario {
         return false;
     }
         
-      
-   
-   /* public Usuario obtenerUsuarioPorNombre(String username) {
-        for (Usuario usuario : usuarios) {
-            if (usuario != null && usuario.getUsername().equals(username)) {
-                return usuario;
-            }
-        }
-        return null;
-    }*/
-    
-    
-    
-    
-      
-       /* public boolean insertar (Usuario usuario){
-       if(buscar(usuario.getUsername())==null){
-           for(int i=0; i<usuarios.length; i++){
-               if(usuarios[i]==null){
-                   usuarios[i]=usuario;
-                   
-                   return true; }        
-               }
-        }
-           return false;
-   }*/
-        
-        
-        
-        
+         
     public String mostrarNombre() {
         if (usuarioActual != null) {
             return usuarioActual.getNombre_user();
@@ -233,8 +181,9 @@ public class ManejoUsuario {
         return false; 
     }
      
-      
-      
+   
+    
+   //FUNCIONES PARA TWITS RELACIONADOS CON EL USER LOGGEADO  
    public void agregarTwitActual(String username, String contenido, String hora, String fecha) {
        
        if (usuarioActual != null) {
@@ -254,25 +203,7 @@ public class ManejoUsuario {
     
     }
     
-  /* public Twits[] obtenerHashtagActual() {
-        if (usuarioActual != null) {
-            return usuarioActual.getHashtag();
-        } else {
-            return new Twits[0];
-        }
-     
-    }
-    
-    public Twits[] obtenerMencionActual() {
-        if (usuarioActual != null) {
-            return usuarioActual.getMenciones();
-        } else {
-            return new Twits[0];
-        }
-          
-     
-    }*/
-    
+ //FUNCIONES PARA HASGTAGS RELACIONADOS CON EL USER LOGGEADO
     public void agregarHashtagG(Twits twit) {
         if (indexHashtagsG < HashtagsG.length) {
             HashtagsG[indexHashtagsG] = twit;
@@ -281,7 +212,6 @@ public class ManejoUsuario {
             System.out.println("No se pueden agregar más hashtags generales.");
         }
     }
-    
     public Twits[] obtenerHashtasG() {
         Twits[] hasgtagsActuales = new Twits[indexHashtagsG];
         System.arraycopy(HashtagsG, 0, hasgtagsActuales, 0, indexHashtagsG);
@@ -289,7 +219,6 @@ public class ManejoUsuario {
     }    
     
     public Twits[] buscarHashtags(String palabraClave) {
-        
         Twits[] resultados = new Twits[indexHashtagsG];
         int contadorResultados = 0;
         
@@ -299,13 +228,16 @@ public class ManejoUsuario {
                 contadorResultados++;
             }
         }
-        //crear un array que muestre que eocntro
+        // hastags encontrados
         Twits[] resultadosFinales = new Twits[contadorResultados];
         System.arraycopy(resultados, 0, resultadosFinales, 0, contadorResultados);
 
-    return resultadosFinales;
-}
-     
+        return resultadosFinales;
+    }
+    
+    
+    
+    //FUNCIONES PARA MENCIONES RELACIONADOS CON EL USER LOGGEADO
      public void agregarMencionG(Twits twit) {
         if (indexTwitsG < TwitsG.length) {
             TwitsG[indexTwitsG] = twit;
@@ -343,8 +275,11 @@ public class ManejoUsuario {
     }
     return new Twits[0]; 
 }
+    
      
-     public Usuario[] obtenerTodosLosUsuarios() {
+     
+     
+    public Usuario[] obtenerTodosLosUsuarios() {
     Usuario[] todos = new Usuario[contadorUsers];
     int contador = 0;
     for (int i = 0; i < contadorUsers; i++) {

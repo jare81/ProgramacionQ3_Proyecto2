@@ -264,10 +264,10 @@ public class Registro extends javax.swing.JFrame {
                 if (edad < 12 || edad > 100) {
                     JOptionPane.showMessageDialog(null, "!Error. Rango de edad invalido");
                     txtedad.setText(null);
-                    edad = -1; // Reiniciar edad a valor invalid
+                    edad = -1; 
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "!Error. El campo de edad no puede estar vacío");
+              //  JOptionPane.showMessageDialog(null, "!Error. El campo de edad no puede estar vacío");
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "!Error. Formato de edad incorrecto");
@@ -296,7 +296,7 @@ public class Registro extends javax.swing.JFrame {
                 new Apariencia(user).setVisible(true);
                 Perfil perfil = new Perfil(user);
             } else {
-                JOptionPane.showMessageDialog(null, "Error al registrar el usuario");
+                JOptionPane.showMessageDialog(null, "Algo salio mal, intenta de nuevo");
                    }
             
         } else {
@@ -305,11 +305,9 @@ public class Registro extends javax.swing.JFrame {
        
         
     } else {
-        if (nombre.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        if (nombre.isEmpty() || username.isEmpty() || password.isEmpty() || edadText.isEmpty() || (!generoSeleccionado)) {
             JOptionPane.showMessageDialog(null, "¡Error! Asegúrese de llenar todos los campos");
             
-        } else if (!generoSeleccionado) {
-            JOptionPane.showMessageDialog(null, "¡Error! Ingrese su género");
             }
         } 
     }//GEN-LAST:event_bnIniciarActionPerformed

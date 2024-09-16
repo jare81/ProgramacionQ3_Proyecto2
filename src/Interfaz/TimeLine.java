@@ -143,7 +143,7 @@ public class TimeLine extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Descubre lo que están diciedo...");
+        jLabel1.setText("Descubre lo que están diciendo...");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 340, -1));
 
         area.setEditable(false);

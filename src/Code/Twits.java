@@ -46,7 +46,7 @@ public class Twits {
         return fecha;
     }
     public Usuario getUsuario() {
-        return usuario;  //  que creó el twit
+        return usuario;  //quien creo el twit
     }
     
     public String toString() {

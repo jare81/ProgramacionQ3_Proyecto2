@@ -29,7 +29,7 @@ public class SyS {
             seguidores[indexSeguidores]=usuario;
             indexSeguidores++;
         }else{
-            System.out.println(" No hay mas espacio para seguidores");
+            System.out.println("No hay mas espacio para seguidores");
         }
     }
     
@@ -48,7 +48,6 @@ public class SyS {
                 for (int j = i; j < indexSeguidores-1; j++) {
                     seguidores[j] = seguidores [j+1];
                 }
-                
                 seguidores[indexSeguidores -1]=null;
                 indexSeguidores--;
                 return;
@@ -88,7 +87,7 @@ public class SyS {
         Usuario[] seguidoresActivos = new Usuario[contador];
         int index = 0;
         for (int i = 0; i < indexSeguidores; i++) {
-            if (seguidores[i] != null && seguidores[i].isActivo()) {
+            if (seguidores[i] != null && seguidores[i].isActivo()==true) {
                 seguidoresActivos[index++] = seguidores[i];
             }
         }
@@ -100,7 +99,7 @@ public class SyS {
         Usuario[] seguidosActivos = new Usuario[contador];
         int index = 0;
         for (int i = 0; i < indexSeguidos; i++) {
-            if (seguidos[i] != null && seguidos[i].isActivo()) {
+            if (seguidos[i] != null && seguidos[i].isActivo()==true) {
                 seguidosActivos[index++] = seguidos[i];
             }
         }
@@ -126,7 +125,7 @@ public class SyS {
     public int cantidadSeguidores() {
         int cuantos = 0;
         for (int i = 0; i < indexSeguidores; i++) {
-            if (seguidores[i] != null && seguidores[i].isActivo()) {
+            if (seguidores[i] != null && seguidores[i].isActivo()==true) {
                 cuantos++;
             }
         }
@@ -136,7 +135,7 @@ public class SyS {
     public int cantidadSeguidos() {
         int cuantos = 0;
         for (int i = 0; i < indexSeguidos; i++) {
-            if (seguidos[i] != null && seguidos[i].isActivo()) {
+            if (seguidos[i] != null && seguidos[i].isActivo()==true) {
                 cuantos++; 
             }
         }

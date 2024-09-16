@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 
 public class Apariencia extends javax.swing.JFrame {
@@ -31,8 +32,17 @@ public class Apariencia extends javax.swing.JFrame {
      */
     public Apariencia(ManejoUsuario user) {
        
+        
         this.user = user;
         initComponents();
+        
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setResizable(false);
+        this.addWindowStateListener(e -> {
+            if (e.getNewState() == JFrame.ICONIFIED) {
+                this.setExtendedState(JFrame.NORMAL);  // No deja que se minimice
+            }
+        });
         this.setLocationRelativeTo(null);
         
         //foto, user, nombre
@@ -81,7 +91,7 @@ public class Apariencia extends javax.swing.JFrame {
             ImageIcon imagenIcon = new ImageIcon(imgURL);
             lbfoto.setIcon(imagenIcon);
         } else {
-            System.err.println("No se pudo encontrar la imagen en la ruta: " + rutaImagen);
+            System.out.println("No se pudo encontrar la imagen en la ruta: " + rutaImagen);
         }
 }
     
@@ -100,11 +110,6 @@ public class Apariencia extends javax.swing.JFrame {
     }
     
     private void limitarCaracteres() {
-      /*if (areapost.getText().length() > max) {
-          JOptionPane.showMessageDialog(null, "Solo se permiten 140 caracteres");
-           areapost.setText(areapost.getText().substring(0, max));
-          }*/
-      
         areapost.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 if (areapost.getText().length() >= max) {
@@ -204,7 +209,7 @@ public class Apariencia extends javax.swing.JFrame {
         lbnombre.setForeground(new java.awt.Color(255, 255, 255));
         lbnombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbnombre.setText("Nombre Completo");
-        jPanel1.add(lbnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 540, 200, 25));
+        jPanel1.add(lbnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 210, 25));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/twitterazul128.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 130, 110));
@@ -305,7 +310,7 @@ public class Apariencia extends javax.swing.JFrame {
         jPanel1.add(bnpostear, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, 200, -1));
 
         lbfoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/perfil4 (1)perfil5.png"))); // NOI18N
-        jPanel1.add(lbfoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 90, 80));
+        jPanel1.add(lbfoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 90, 80));
 
         lbfoto3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/send.png"))); // NOI18N
         jPanel1.add(lbfoto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 40, -1));
@@ -521,13 +526,12 @@ public class Apariencia extends javax.swing.JFrame {
             String contenido = areapost.getText();
             user.agregarTwitActual(user.mostrarNombre(), contenido, hora, (" / " + today));
             
-            
            // timeLinePanel2.m
            
             JOptionPane.showMessageDialog(null, "Post publicado");
             inter.mostrarMenciones();
             mostrarHash();
-             timeLinePanel.mostrarTwit();
+            timeLinePanel.mostrarTwit();
             
             areapost.setText("");
             
@@ -566,7 +570,6 @@ public class Apariencia extends javax.swing.JFrame {
 
     private void txfbhashMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txfbhashMousePressed
        txfbhash.setText("");
-       
        
     }//GEN-LAST:event_txfbhashMousePressed
 

@@ -154,22 +154,29 @@ public class Iniciar_Sesion extends javax.swing.JFrame {
         String password = new String(jpasswor.getPassword());
 
         if (!username.isEmpty() && !password.isEmpty()) {
+            
             if (user.validarCredenciales(username, password)) {
+                
                 if(user.obtenerUsuarioActual().isActivo()==false){
                     user.cambiarEstadoUsuario(user.mostrarUser(), true);
-                JOptionPane.showMessageDialog(null, "Tu cuenta ha sido activada nuevamente");
-                }else{
-                user.cambiarEstadoUsuario(user.mostrarUser(), true);
-                JOptionPane.showMessageDialog(null, "Bienvenido :)");}
-                Perfil perfil = new Perfil(user);
-                this.setVisible(false);
-                new Apariencia(user).setVisible(true);
+                    JOptionPane.showMessageDialog(null, "Tu cuenta ha sido activada nuevamente");
                 
+                }else{
+                    user.cambiarEstadoUsuario(user.mostrarUser(), true);
+                    JOptionPane.showMessageDialog(null, "Bienvenido :)");}
+                    Perfil perfil = new Perfil(user);
+                    
+                    this.setVisible(false);
+                    new Apariencia(user).setVisible(true);
+                
+            } else if(user.usuarioExiste(username)){
+               JOptionPane.showMessageDialog(null, "Verifique la informacion");
+ 
             } else {
-                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos");
+                JOptionPane.showMessageDialog(null, "El usuario no existe");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Campos incompletos");
+            JOptionPane.showMessageDialog(null, "Error! Campos Vacios");
         }
         
     }//GEN-LAST:event_bnIniciarActionPerformed
@@ -181,7 +188,7 @@ public class Iniciar_Sesion extends javax.swing.JFrame {
 
     private void chmostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chmostrarActionPerformed
         if (chmostrar.isSelected()) {
-        jpasswor.setEchoChar((char)0);
+            jpasswor.setEchoChar((char)0);
         } else {
             
             jpasswor.setEchoChar('*');

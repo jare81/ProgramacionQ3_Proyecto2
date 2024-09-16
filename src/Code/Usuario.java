@@ -41,7 +41,6 @@ public class Usuario {
         this.user=user;
         
         this.sys= new SyS(100);
-      
     }
     
     public Usuario getUser(){
@@ -71,9 +70,9 @@ public class Usuario {
     public int getEdad(){
         return edad;
     }
-    public boolean getEstado(){
+   /* public boolean getEstado(){
         return estado;
-    }
+    }*/
     
     public void setEstado(boolean estado){
         this.estado=estado;
@@ -101,10 +100,12 @@ public class Usuario {
         if (twit.getContenido().contains("#")) {
        
             user.agregarHashtagG(twit);
+            
             twits[contadorTwits] = twit;
             contadorTwits++;
          
-        
+     
+            
     } else if (twit.getContenido().contains("@")) {
         String contenido = twit.getContenido();
         int inicio = contenido.indexOf("@") + 1;
@@ -116,11 +117,10 @@ public class Usuario {
 
         String nombreMencionado = contenido.substring(inicio, fin);
         
-
         // existe el user menciojado?
         Usuario usuarioMencionado = user.obtenerUsuario(nombreMencionado);
         if (usuarioMencionado != null ) {
-           // usuarioMencionado.agregarMencion(twit);
+            
             user.agregarMencionG(twit);
             if (contadorTwits < twits.length) {
                 twits[contadorTwits] = twit;
@@ -128,7 +128,7 @@ public class Usuario {
             }
             
         } else {
-            System.out.println("El usuario @" + nombreMencionado + " no existe.");
+            JOptionPane.showMessageDialog(null, "El usuario @" + nombreMencionado + " no existe.");
             if (contadorTwits < twits.length) {
                 twits[contadorTwits] = twit;
                 contadorTwits++;

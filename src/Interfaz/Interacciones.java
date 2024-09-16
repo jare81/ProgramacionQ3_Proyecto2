@@ -25,52 +25,28 @@ public class Interacciones extends javax.swing.JPanel {
         
     }
     
-    
-    
-     public void mostrarMenciones() {
-     /*if (user != null) { 
-         //user logg
+    public void mostrarMenciones() {
+        if (user != null) { 
             Usuario usuarioActual = user.obtenerUsuarioActual(); 
-
             Twits[] mencionesGlobales = user.obtenerMencionesG();
-            Usuario creador = twit.getUsuario();
-          
-            for (int i = mencionesGlobales.length-1; i >=0; i--) {
-             if (mencionesGlobales[i].getContenido().contains("@" + usuarioActual.getUsername()) && creador.isActivo() ) {
-                      men.append(mencionesGlobales[i].toString() + "\n\n");// O actualizar el JTextArea con la mención
+
+            for (int i = mencionesGlobales.length - 1; i >= 0; i--) {
+                Twits mencion = mencionesGlobales[i];
+
+                Usuario creador = mencion.getUsuario();
+                    
+                if (mencion.getContenido().contains("@" + usuarioActual.getUsername()) && creador.isActivo()==true) {
+                     men.append(mencion.toString() + "\n\n");
                 }
-         }
-            
+            }
             
         } else {
             System.out.println("El usuario es null");
-        }
-
-        revalidate();
-        repaint();*/
-     
-            if (user != null) { 
-                Usuario usuarioActual = user.obtenerUsuarioActual(); 
-                Twits[] mencionesGlobales = user.obtenerMencionesG();
-
-                for (int i = mencionesGlobales.length - 1; i >= 0; i--) {
-                    Twits mencion = mencionesGlobales[i];
-
-                    Usuario creador = mencion.getUsuario();
-                    
-                    if (mencion.getContenido().contains("@" + usuarioActual.getUsername()) && creador.isActivo()) {
-                        men.append(mencion.toString() + "\n\n");
-                    }
-                }
-            } else {
-                System.out.println("El usuario es null");
             }
 
             revalidate();
             repaint();
         
-     
-     
     }
 
      

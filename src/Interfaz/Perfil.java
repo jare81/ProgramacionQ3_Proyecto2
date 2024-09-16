@@ -5,9 +5,10 @@ import Code.ManejoUsuario;
 import Code.SyS;
 import Code.Twits;
 import Code.Usuario;
+import java.awt.Color;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -17,14 +18,23 @@ public class Perfil extends javax.swing.JFrame {
 private ManejoUsuario user;
 private Usuario usuario;
 private SyS sys;
-    private DefaultListModel<String> modeloLista;
     
     public Perfil(ManejoUsuario user) {
         this.user=user;
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setResizable(false);
+        this.addWindowStateListener(e -> {
+            if (e.getNewState() == JFrame.ICONIFIED) {
+                this.setExtendedState(JFrame.NORMAL);  // No deja que se minimice
+            }
+        });
+        
+        
         usuario = user.obtenerUsuarioActual();
         sys = usuario.getSyS();
         jLabel1.setText("");
+        jLabel1.setOpaque(false);
         
         actualizarUsuario();
         actualizarDatos();
@@ -71,32 +81,7 @@ private SyS sys;
         listaUsuarios.setModel(modelo);
     }
     
-    //NO USADOO PERO AQUI ESTA POR SI ACASO
-    public void aaa(){
-        usuario = user.obtenerUsuarioActual();
-        if (usuario != null) {
-            sys = usuario.getSyS(); 
-            if (sys != null) {
-               actualizarUsuario();
-                 mostrarTwit();
-              
-                listaUsuarios.addListSelectionListener(new ListSelectionListener() {
-                    public void valueChanged(ListSelectionEvent e) {
-                        if (!e.getValueIsAdjusting() && listaUsuarios.getSelectedIndex() != -1) {
-                            bnentrar.setEnabled(true);
-                        } else {
-                            bnentrar.setEnabled(false);
-                        }
-                    }
-                });
-                bnentrar.setEnabled(false);
-            } else {
-                System.err.println("El sistema del usuario es null.");
-            }
-        } else {
-            System.err.println("El usuario actual es null.");
-        }
-    }
+   
     
     //pasar informacion jfframe
      public void actualizarDatos() {
@@ -129,7 +114,7 @@ private SyS sys;
             rutaImagen = "/Images/femaleazul128.png"; 
         }
 
-            java.net.URL imgURL = getClass().getResource(rutaImagen);
+        java.net.URL imgURL = getClass().getResource(rutaImagen);
         if (imgURL != null) {
             ImageIcon imagenIcon = new ImageIcon(imgURL);
             jLabel2.setIcon(imagenIcon);
@@ -153,7 +138,7 @@ private SyS sys;
         
          Twits[] twits = usuario.getTwits();
 
-        // Recorremos el arreglo en orden inverso
+        //  arreglo en orden inverso
         for (int i = twits.length - 1; i >= 0; i--) {
             if (twits[i] != null) {
                 jTextArea1.append(twits[i].toString() + "\n\n");
@@ -195,6 +180,8 @@ private SyS sys;
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         bnentrar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         Fonde = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -203,7 +190,7 @@ private SyS sys;
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/perfil4 (1)perfil5.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, 150));
 
-        fondo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dell\\OneDrive - Universidad Tecnologica Centroamericana\\Documentos\\NetBeansProjects\\Project2\\Project2\\src\\Images\\fondo4.jpg")); // NOI18N
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/fon5.png"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 880, 190));
 
         lbsiguiendo.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
@@ -412,6 +399,12 @@ private SyS sys;
         });
         getContentPane().add(bnentrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1330, 110, 120, -1));
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/time24.png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, -1, 30));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/genero24.png"))); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, 30, 30));
+
         Fonde.setBackground(new java.awt.Color(0, 0, 0));
         Fonde.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
         Fonde.setForeground(new java.awt.Color(255, 255, 255));
@@ -423,12 +416,16 @@ private SyS sys;
 
     private void bnsiguiendoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnsiguiendoActionPerformed
         jLabel1.setText("LISTA DE SEGUIDOS");
+        jLabel1.setOpaque(true); // Hacer el fondo visible
+        jLabel1.setBackground(Color.GRAY);
         mostrarSeguidos();
        
     }//GEN-LAST:event_bnsiguiendoActionPerformed
 
     private void bnseguidoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnseguidoresActionPerformed
     jLabel1.setText("LISTA DE SEGUIDORES");
+    jLabel1.setOpaque(true); // Hacer el fondo visible
+    jLabel1.setBackground(Color.GRAY);
         mostrarSeguidores();
     }//GEN-LAST:event_bnseguidoresActionPerformed
 
@@ -445,6 +442,7 @@ private SyS sys;
         String palabraClave = txfbperfil.getText().trim(); // Obtener y limpiar espacios
         String estado ="";
         jLabel1.setText("");
+        jLabel1.setOpaque(false);
         DefaultListModel<String> modelo = new DefaultListModel<>();
 
         if (palabraClave.isEmpty()) {
@@ -453,13 +451,13 @@ private SyS sys;
                 if (usuario != null) {
                      
                     if (usuario.equals(usuario.getUser())) {
-                         estado = "   [Tu]";
+                         estado = "   [Tú]";
                     }else if (usuario.getUser().getSyS().esSeguido(usuario)) {
                         estado = "    [Siguiendo]";
                     } else {
                         estado = "    [No seguido]";
                     }
-                    modelo.addElement(usuario.getNombre_user() + " - @" + usuario.getUsername() + " " + estado);
+                    modelo.addElement("  @" + usuario.getUsername() + " " + estado);
                 }
             }
         } else {
@@ -468,13 +466,13 @@ private SyS sys;
                 if (usuario != null) {
                     
                      if (usuario.equals(usuario.getUser())) {
-                         estado = "   [Tu]";
+                         estado = "   [Tú]";
                     }else if (usuario.getUser().getSyS().esSeguido(usuario)) {
                         estado = "   [Siguiendo]";
                     } else {
                         estado = "   [No seguido]";
                     }
-                    modelo.addElement(usuario.getNombre_user() + " - @" + usuario.getUsername() + " " + estado);
+                    modelo.addElement("  @" + usuario.getUsername() + " " + estado);
                 }
             }
         }
@@ -482,13 +480,7 @@ private SyS sys;
     // Actualizar la lista de usuarios
     listaUsuarios.setModel(modelo);
 
-        /*areabuscar.setText(""); 
-
-        for (Usuario usuario : usuariosEncontrados) {
-            if (usuario != null) {
-                areabuscar.append(usuario.getNombre_user() + " - @" + usuario.getUsername() + "\n-----------------------------------------------------\n"); 
-            }
-        }*/
+        
     }//GEN-LAST:event_txfbperfilKeyTyped
 
     private void bnactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnactivarActionPerformed
@@ -595,6 +587,8 @@ private SyS sys;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;

@@ -9,6 +9,7 @@ import Code.ManejoUsuario;
 import Code.Twits;
 import Code.Usuario;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
@@ -27,6 +28,14 @@ public class OtroPerfil extends javax.swing.JFrame {
      
     public OtroPerfil(Usuario usuario, ManejoUsuario user) {
         initComponents();
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setResizable(false);
+        this.addWindowStateListener(e -> {
+            if (e.getNewState() == JFrame.ICONIFIED) {
+                this.setExtendedState(JFrame.NORMAL);  // No deja que se minimice
+            }
+        });
+        
         this.usuario=usuario;
         this.user=user;
         
@@ -134,6 +143,8 @@ public class OtroPerfil extends javax.swing.JFrame {
         lbgenero = new javax.swing.JLabel();
         lbedad = new javax.swing.JLabel();
         lbnombre5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -153,28 +164,30 @@ public class OtroPerfil extends javax.swing.JFrame {
         lbsiguiendo.setText("0");
         getContentPane().add(lbsiguiendo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 360, 50, 30));
 
+        bnsiguiendo.setBackground(new java.awt.Color(0, 153, 255));
         bnsiguiendo.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        bnsiguiendo.setForeground(new java.awt.Color(0, 0, 0));
         bnsiguiendo.setText("Siguiendo");
         bnsiguiendo.setBorderPainted(false);
-        bnsiguiendo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         bnsiguiendo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnsiguiendoActionPerformed(evt);
             }
         });
-        getContentPane().add(bnsiguiendo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, 120, 30));
+        getContentPane().add(bnsiguiendo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, 130, 30));
 
+        bnseguidores.setBackground(new java.awt.Color(0, 153, 255));
         bnseguidores.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        bnseguidores.setForeground(new java.awt.Color(0, 0, 0));
         bnseguidores.setText("Seguidores");
         bnseguidores.setBorderPainted(false);
         bnseguidores.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        bnseguidores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         bnseguidores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnseguidoresActionPerformed(evt);
             }
         });
-        getContentPane().add(bnseguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 360, 140, 30));
+        getContentPane().add(bnseguidores, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 360, 130, 30));
 
         lbseguidores.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
         lbseguidores.setForeground(new java.awt.Color(255, 255, 255));
@@ -205,7 +218,9 @@ public class OtroPerfil extends javax.swing.JFrame {
         lbfecha1.setText("Se unió en");
         getContentPane().add(lbfecha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 310, 90, 25));
 
+        bnSeguir.setBackground(new java.awt.Color(0, 153, 255));
         bnSeguir.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
+        bnSeguir.setForeground(new java.awt.Color(0, 0, 0));
         bnSeguir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnSeguirActionPerformed(evt);
@@ -283,6 +298,12 @@ public class OtroPerfil extends javax.swing.JFrame {
         lbnombre5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbnombre5.setText("años");
         getContentPane().add(lbnombre5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 340, 70, 25));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/genero24.png"))); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, 30, 30));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/time24.png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, -1, 30));
 
         jLabel1.setBackground(new java.awt.Color(51, 51, 51));
         jLabel1.setOpaque(true);
@@ -381,6 +402,8 @@ public class OtroPerfil extends javax.swing.JFrame {
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbcalendario1;
