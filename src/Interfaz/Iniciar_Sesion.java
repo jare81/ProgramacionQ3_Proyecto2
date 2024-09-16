@@ -85,6 +85,7 @@ public class Iniciar_Sesion extends javax.swing.JFrame {
         bnIniciar.setFont(new java.awt.Font("Berlin Sans FB", 0, 18)); // NOI18N
         bnIniciar.setForeground(new java.awt.Color(0, 0, 0));
         bnIniciar.setText("Siguiente ");
+        bnIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bnIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnIniciarActionPerformed(evt);
@@ -101,6 +102,7 @@ public class Iniciar_Sesion extends javax.swing.JFrame {
         bncrear.setBackground(new java.awt.Color(255, 255, 255));
         bncrear.setForeground(new java.awt.Color(0, 0, 0));
         bncrear.setText("Crear cuenta");
+        bncrear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bncrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bncrearActionPerformed(evt);

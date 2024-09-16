@@ -43,7 +43,7 @@ public class SyS {
     }
     
     public void eliminarSeguidor(Usuario usuario){
-        for (int i = 0; i < indexSeguidores; i++) {
+       /* for (int i = 0; i < indexSeguidores; i++) {
             if(seguidores[i] !=null && seguidores[i].equals(usuario)){
                 for (int j = i; j < indexSeguidores-1; j++) {
                     seguidores[j] = seguidores [j+1];
@@ -53,11 +53,27 @@ public class SyS {
                 return;
             }
             
+        }*/
+       
+        int i;
+        for (i = 0; i < indexSeguidores; i++) {
+            if (seguidores[i] != null && seguidores[i].equals(usuario)) {
+                break;
+            }
+        }
+        if (i < indexSeguidores) {
+            for (int j = i; j < indexSeguidores - 1; j++) {
+                seguidores[j] = seguidores[j + 1];
+            }
+            seguidores[indexSeguidores - 1] = null;
+            indexSeguidores--;
+        } else {
+            System.out.println("El usuario no es seguido");
         }
     }
     
     public void eliminarSeguido(Usuario usuario){
-        for (int i = 0; i < indexSeguidos; i++) {
+       /* for (int i = 0; i < indexSeguidos; i++) {
             if(seguidos[i]!=null && seguidos[i].equals(usuario)){
                 for (int j = i; j < indexSeguidos-1; j++) {
                     seguidos[j] =seguidos[j-1];
@@ -66,7 +82,23 @@ public class SyS {
                 indexSeguidos--;
                 return;
             }
-        }System.out.println("El usuario no es seguido");
+        }System.out.println("El usuario no es seguido");*/
+        int i;
+        for (i = 0; i < indexSeguidos; i++) {
+            if (seguidos[i] != null && seguidos[i].equals(usuario)) {
+                break;
+            }
+        }
+        if (i < indexSeguidos) {
+            for (int j = i; j < indexSeguidos - 1; j++) {
+                seguidos[j] = seguidos[j + 1];
+            }
+            seguidos[indexSeguidos - 1] = null;
+            indexSeguidos--;
+        } else {
+            System.out.println("El usuario no es seguido");
+        }
+       
     }
     
     

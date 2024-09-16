@@ -190,8 +190,8 @@ public class Registro extends javax.swing.JFrame {
         rdF.setForeground(new java.awt.Color(255, 255, 255));
         rdF.setText("Femenino");
         rdF.setContentAreaFilled(false);
+        rdF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rdF.setFocusable(false);
-        rdF.setOpaque(false);
         rdF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rdFActionPerformed(evt);
@@ -205,6 +205,7 @@ public class Registro extends javax.swing.JFrame {
         rdM.setForeground(new java.awt.Color(255, 255, 255));
         rdM.setText("Masculino");
         rdM.setContentAreaFilled(false);
+        rdM.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         rdM.setFocusPainted(false);
         rdM.setRequestFocusEnabled(false);
         rdM.setRolloverEnabled(false);

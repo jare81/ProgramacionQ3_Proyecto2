@@ -42,6 +42,7 @@ private SyS sys;
          
        // aaa();
          
+       //si no hay algun user select no esta visible boton
         listaUsuarios.addListSelectionListener(new ListSelectionListener() {
                     public void valueChanged(ListSelectionEvent e) {
                         if (!e.getValueIsAdjusting() && listaUsuarios.getSelectedIndex() != -1) {
@@ -59,25 +60,31 @@ private SyS sys;
     
      private void mostrarSeguidos() {
         DefaultListModel<String> modelo = new DefaultListModel<>(); 
-         
+        txfbperfil.setText("");
         modelo.clear();
         Usuario[] seguidos = usuario.obtenerSeguidos();
-        for (Usuario seguido : seguidos) {
-            modelo.addElement(seguido.getNombre_user() + " - @" + seguido.getUsername());
+        if(seguidos == null || seguidos.length == 0){
+            JOptionPane.showMessageDialog(null, "No tienes usuarios seguidos");
+        }else{
+            for (Usuario seguido : seguidos) {
+                modelo.addElement(seguido.getNombre_user() + " - @" + seguido.getUsername());
+            }
         }
-        
         listaUsuarios.setModel(modelo);
     }
 
     private void mostrarSeguidores() {
         DefaultListModel<String> modelo = new DefaultListModel<>(); 
-
+        txfbperfil.setText("");
         modelo.clear();
         Usuario[] seguidores = usuario.obtenerSeguidores();
-        for (Usuario seguidor : seguidores) {
-            modelo.addElement(seguidor.getNombre_user() + " - @" + seguidor.getUsername());
+        if(seguidores == null || seguidores.length == 0){
+            JOptionPane.showMessageDialog(null, "No tienes usuarios seguidores");
+        }else{
+            for (Usuario seguidor : seguidores) {
+                modelo.addElement(seguidor.getNombre_user() + " - @" + seguidor.getUsername());
+            }
         }
-        
         listaUsuarios.setModel(modelo);
     }
     
@@ -204,7 +211,7 @@ private SyS sys;
         bnsiguiendo.setForeground(new java.awt.Color(0, 0, 0));
         bnsiguiendo.setText("Siguiendo");
         bnsiguiendo.setBorderPainted(false);
-        bnsiguiendo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        bnsiguiendo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bnsiguiendo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnsiguiendoActionPerformed(evt);
@@ -217,7 +224,7 @@ private SyS sys;
         bnseguidores.setForeground(new java.awt.Color(0, 0, 0));
         bnseguidores.setText("Seguidores");
         bnseguidores.setBorderPainted(false);
-        bnseguidores.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        bnseguidores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bnseguidores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnseguidoresActionPerformed(evt);
@@ -266,6 +273,7 @@ private SyS sys;
         bnactivar.setBackground(new java.awt.Color(0, 153, 255));
         bnactivar.setFont(new java.awt.Font("Berlin Sans FB", 0, 16)); // NOI18N
         bnactivar.setForeground(new java.awt.Color(0, 0, 0));
+        bnactivar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bnactivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnactivarActionPerformed(evt);
@@ -288,6 +296,11 @@ private SyS sys;
         txfbperfil.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         txfbperfil.setForeground(new java.awt.Color(0, 0, 0));
         txfbperfil.setText("Buscar algo");
+        txfbperfil.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txfbperfilFocusLost(evt);
+            }
+        });
         txfbperfil.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 txfbperfilMousePressed(evt);
@@ -392,6 +405,7 @@ private SyS sys;
         bnentrar.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         bnentrar.setForeground(new java.awt.Color(0, 0, 0));
         bnentrar.setText("Entrar");
+        bnentrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         bnentrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bnentrarActionPerformed(evt);
@@ -444,7 +458,7 @@ private SyS sys;
         jLabel1.setText("");
         jLabel1.setOpaque(false);
         DefaultListModel<String> modelo = new DefaultListModel<>();
-
+       
         if (palabraClave.isEmpty()) {
             Usuario[] todosLosUsuarios = user.obtenerTodosLosUsuarios();
             for (Usuario usuario : todosLosUsuarios) {
@@ -537,6 +551,10 @@ private SyS sys;
     
         
     }//GEN-LAST:event_bnentrarActionPerformed
+
+    private void txfbperfilFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txfbperfilFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfbperfilFocusLost
 
     /**
      * @param args the command line arguments

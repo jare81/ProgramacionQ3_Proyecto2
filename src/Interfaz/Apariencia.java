@@ -27,6 +27,9 @@ public class Apariencia extends javax.swing.JFrame {
       private TimeLine timeLinePanel;
       private Interacciones timeLinePanel2;
       Interacciones inter = new Interacciones(user); 
+      Color colorOriginal;
+      Color colorIluminado;
+      
     /**
      * Creates new form Apariencia
      */
@@ -44,6 +47,16 @@ public class Apariencia extends javax.swing.JFrame {
             }
         });
         this.setLocationRelativeTo(null);
+        
+       /* Color colorOriginal = jPanel3.getBackground();  
+        Color colorIluminado = new Color(100, 100, 185); 
+        
+        jPanel3.addFocusListener(new FocusAdapter() {
+           
+            public void focusLost(FocusEvent e) {
+                jPanel3.setBackground(colorOriginal); 
+            }
+        });*/
         
         //foto, user, nombre
         actualizarUsuario();
@@ -209,7 +222,7 @@ public class Apariencia extends javax.swing.JFrame {
         lbnombre.setForeground(new java.awt.Color(255, 255, 255));
         lbnombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbnombre.setText("Nombre Completo");
-        jPanel1.add(lbnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 210, 25));
+        jPanel1.add(lbnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 200, 25));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/twitterazul128.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 130, 110));
@@ -492,28 +505,11 @@ public class Apariencia extends javax.swing.JFrame {
        new Perfil(user).setVisible(true);
     }//GEN-LAST:event_bnperfilActionPerformed
 
-    private void bnhashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnhashActionPerformed
-      mostrarHash();
-    }//GEN-LAST:event_bnhashActionPerformed
-
     private void bntimelineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntimelineActionPerformed
        TimeLine p1 = new TimeLine(user);
         mostrarPanel(p1);
         p1.mostrarTwit();
     }//GEN-LAST:event_bntimelineActionPerformed
-
-    private void bnpostearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bnpostearMouseClicked
-         
-    }//GEN-LAST:event_bnpostearMouseClicked
-
-    private void bnpostearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnpostearActionPerformed
-        if (jPanel3.getBorder() == null) {
-        jPanel3.setBorder(new LineBorder(Color.BLACK, 4)); // Añadir borde
-        
-        } else {
-            jPanel3.setBorder(null); // Quitar borde
-        }
-    }//GEN-LAST:event_bnpostearActionPerformed
 
     private void bnpublicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnpublicarActionPerformed
         LocalDate today = LocalDate.now();
@@ -560,10 +556,6 @@ public class Apariencia extends javax.swing.JFrame {
          lbhora.setText(hora);
     }//GEN-LAST:event_areapostFocusLost
 
-    private void bnpostearFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_bnpostearFocusGained
-       
-    }//GEN-LAST:event_bnpostearFocusGained
-
     private void txfbhashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfbhashActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txfbhashActionPerformed
@@ -591,6 +583,25 @@ public class Apariencia extends javax.swing.JFrame {
             mostrarHash();
         }
     }//GEN-LAST:event_txfbhashFocusLost
+
+    private void bnhashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnhashActionPerformed
+        mostrarHash();
+    }//GEN-LAST:event_bnhashActionPerformed
+
+    private void bnpostearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnpostearActionPerformed
+        /*bnpostear.addActionListener(e -> {
+            jPanel3.setBackground(colorIluminado);  // Cambia a color "iluminado"
+            jPanel3.requestFocusInWindow();  // Solicita el foco para el panel
+        });*/
+    }//GEN-LAST:event_bnpostearActionPerformed
+
+    private void bnpostearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bnpostearMouseClicked
+
+    }//GEN-LAST:event_bnpostearMouseClicked
+
+    private void bnpostearFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_bnpostearFocusGained
+
+    }//GEN-LAST:event_bnpostearFocusGained
 
     /**
      * @param args the command line arguments
