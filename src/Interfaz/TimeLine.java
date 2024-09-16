@@ -41,48 +41,6 @@ public class TimeLine extends javax.swing.JPanel {
     public void mostrarTwit() {
         area.setText("");
         
-        /*----------------Twits[] twits = user.obtenerTwitsActual();
-
-        // Recorremos el arreglo en orden inverso
-        for (int i = twits.length - 1; i >= 0; i--) {
-            if (twits[i] != null) {
-                area.append(twits[i].toString() + "\n\n");
-            }
-        }
-        
-        revalidate();
-        repaint();----------*/
-        
-       /* Usuario usuarioActual = user.obtenerUsuarioActual();
-        StringBuilder twitsAcumulados = new StringBuilder();
-
-        Twits[] twitsActual = usuarioActual.getTwits();
-        
-         ordenarTwitsHora(twitsActual);
-
-        for (int i = twitsActual.length - 1; i >= 0; i--) {
-            if (twitsActual[i] != null) {
-                twitsAcumulados.append(twitsActual[i].toString()).append("\n\n");
-            }
-        }
-
-
-          Usuario[] usuariosSeguidos = usuarioActual.obtenerSeguidos();
-    
-            for (Usuario seguido : usuariosSeguidos) {
-                if (seguido.isActivo()) {
-                    Twits[] twitsSeguido = seguido.getTwits();
-                    
-                     ordenarTwitsHora(twitsSeguido);
-                    
-                    for (int i = twitsSeguido.length - 1; i >= 0; i--) { 
-                        if (twitsSeguido[i] != null) {
-                            twitsAcumulados.append(twitsSeguido[i].toString3()).append("\n\n");
-                        }
-                    }
-                }
-            }*/
-
         Usuario usuarioActual = user.obtenerUsuarioActual();
         Twits[] twitsActual = usuarioActual.getTwits();
 
@@ -101,23 +59,20 @@ public class TimeLine extends javax.swing.JPanel {
         int indice = 0;
 
         //twits user actual
-        boolean[] esDelUsuarioActual = new boolean[totalTwits]; 
         for (Twits twit : twitsActual) {
-            if (twit != null) {
+            if (twit != null && indice < totalTwits) { 
                 todosLosTwits[indice] = twit;
-                esDelUsuarioActual[indice] = true; 
                 indice++;
             }
         }
 
-        //twits users seguidos
+        // usuarios seguidos
         for (Usuario seguido : usuariosSeguidos) {
             if (seguido.isActivo()) {
                 Twits[] twitsSeguido = seguido.getTwits();
                 for (Twits twit : twitsSeguido) {
-                    if (twit != null) {
+                    if (twit != null && indice < totalTwits) {
                         todosLosTwits[indice] = twit;
-                        esDelUsuarioActual[indice] = false; 
                         indice++;
                     }
                 }
@@ -127,15 +82,10 @@ public class TimeLine extends javax.swing.JPanel {
         //cronologia
         ordenarTwitsHora(todosLosTwits);
 
-        // mostrar mas nuevo mas viejo
         StringBuilder twitsAcumulados = new StringBuilder();
         for (int i = todosLosTwits.length - 1; i >= 0; i--) {
             if (todosLosTwits[i] != null) {
-                if (esDelUsuarioActual[i]) {
-                    twitsAcumulados.append(todosLosTwits[i].toString()).append("\n\n");
-                } else{
-                    twitsAcumulados.append(todosLosTwits[i].toString3()).append("\n\n");
-                }
+                    twitsAcumulados.append(todosLosTwits[i].toString()).append("\n\n"); 
             }
         }
         area.setText(twitsAcumulados.toString());
@@ -149,22 +99,24 @@ public class TimeLine extends javax.swing.JPanel {
     }
     
     public void ordenarTwitsHora(Twits[] twits){
-        SimpleDateFormat  sdf = new SimpleDateFormat("HH:mm");
-        
-        for (int i = 0; i < twits.length-1; i++) {
-            for (int j = 0; j < twits.length-1- i; j++) {
-                if(twits[j]!=null && twits [j+1] !=null)
-                     try {
-                    Date hora1 = sdf.parse(twits[j].getHora());
-                    Date hora2 = sdf.parse(twits[j + 1].getHora());
+         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
+    
+        for (int indiceActual = 0; indiceActual < twits.length - 1; indiceActual++) {
+            for (int indiceSiguiente = 0; indiceSiguiente < twits.length - 1 - indiceActual; indiceSiguiente++) {
+                if (twits[indiceSiguiente] != null && twits[indiceSiguiente + 1] != null) {
+                    try {
+                        Date horaTwitActual = formatoHora.parse(twits[indiceSiguiente].getHora());
+                        Date horaTwitSiguiente = formatoHora.parse(twits[indiceSiguiente + 1].getHora());
 
-                        if (hora1.after(hora2)) {
-                             Twits temp = twits[j];
-                             twits[j] = twits[j + 1];
-                             twits[j + 1] = temp;
-                         }
-                }   catch (ParseException e) {
-                    e.printStackTrace();
+                        if (horaTwitActual.after(horaTwitSiguiente)) {
+                            // Intercambiar los twits
+                            Twits twitTemporal = twits[indiceSiguiente];
+                            twits[indiceSiguiente] = twits[indiceSiguiente + 1];
+                            twits[indiceSiguiente + 1] = twitTemporal;
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

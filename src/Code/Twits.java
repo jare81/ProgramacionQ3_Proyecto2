@@ -50,7 +50,7 @@ public class Twits {
     }
     
     public String toString() {
-        return "\n     @ " + username + "\n           " + "publicó a las " + hora + "\n           " + contenido + "\n\n_____________________________________________________________________________________";
+        return "\n     @ " + username + "\n           " + "publicó a las " + hora  + fecha + "\n           " + contenido + "\n\n_____________________________________________________________________________________";
     }
     
      public String toString2() {
@@ -58,7 +58,7 @@ public class Twits {
     }
      
      public String toString3() {
-        return "\n     @ " + username + " [siguiendo] "+"\n           " + "publicó a las " + hora + "\n           " + contenido + "\n\n_____________________________________________________________________________________";
+        return "\n     @ " + username + " [siguiendo] "+"\n           " + "publicó a las " + hora  + fecha + "\n           " + contenido + "\n\n_____________________________________________________________________________________";
     }
     
     public void agregarTwit(Twits twit){

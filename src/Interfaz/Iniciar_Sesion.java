@@ -155,10 +155,12 @@ public class Iniciar_Sesion extends javax.swing.JFrame {
 
         if (!username.isEmpty() && !password.isEmpty()) {
             if (user.validarCredenciales(username, password)) {
-                
+                if(user.obtenerUsuarioActual().isActivo()==false){
+                    user.cambiarEstadoUsuario(user.mostrarUser(), true);
+                JOptionPane.showMessageDialog(null, "Tu cuenta ha sido activada nuevamente");
+                }else{
                 user.cambiarEstadoUsuario(user.mostrarUser(), true);
-                JOptionPane.showMessageDialog(null, "Bienvenido :)");
-                
+                JOptionPane.showMessageDialog(null, "Bienvenido :)");}
                 Perfil perfil = new Perfil(user);
                 this.setVisible(false);
                 new Apariencia(user).setVisible(true);
